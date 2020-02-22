@@ -3,31 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://example.org/posts/start-blog-with-hugo/</loc>
+    <loc>https://ruitrek.github.io/posts/start-blog-with-hugo/</loc>
     <lastmod>2020-02-22T22:13:05+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/</loc>
+    <loc>https://ruitrek.github.io/</loc>
     <lastmod>2020-02-22T22:13:05+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/</loc>
+    <loc>https://ruitrek.github.io/posts/</loc>
     <lastmod>2020-02-22T22:13:05+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/about-this-blog/</loc>
+    <loc>https://ruitrek.github.io/posts/about-this-blog/</loc>
     <lastmod>2020-02-22T22:09:06+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://ruitrek.github.io/categories/</loc>
   </url>
   
   <url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://ruitrek.github.io/tags/</loc>
   </url>
   
 </urlset>

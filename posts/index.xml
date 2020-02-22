@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Kimagure Tech</title>
-    <link>http://example.org/posts/</link>
+    <link>https://ruitrek.github.io/posts/</link>
     <description>Recent content in Posts on Kimagure Tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>jp</language>
     <lastBuildDate>Sat, 22 Feb 2020 22:13:05 +0900</lastBuildDate>
     
-	<atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ruitrek.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hugo でブログを作ってみる（た）</title>
-      <link>http://example.org/posts/start-blog-with-hugo/</link>
+      <link>https://ruitrek.github.io/posts/start-blog-with-hugo/</link>
       <pubDate>Sat, 22 Feb 2020 22:13:05 +0900</pubDate>
       
-      <guid>http://example.org/posts/start-blog-with-hugo/</guid>
+      <guid>https://ruitrek.github.io/posts/start-blog-with-hugo/</guid>
       <description>Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。
 Hugo について Hugo はオープンソースの静的サイトジェネレーターです。
 一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。
@@ -34,10 +34,10 @@ echo &#39;theme = &amp;quot;ananke&amp;quot;&#39; &amp;gt;&amp;gt; config.toml �
     
     <item>
       <title>このブログについて</title>
-      <link>http://example.org/posts/about-this-blog/</link>
+      <link>https://ruitrek.github.io/posts/about-this-blog/</link>
       <pubDate>Sat, 22 Feb 2020 22:09:06 +0900</pubDate>
       
-      <guid>http://example.org/posts/about-this-blog/</guid>
+      <guid>https://ruitrek.github.io/posts/about-this-blog/</guid>
       <description>こんにちはルイ (@ruitrek_) と申します。
 ブログ名はあの有名 YouTuber のチャンネル名からブログ名を拝借しました。
 これまで何度かブログに挑戦しましたが、「正確なことを書かねば」とか、「かっこよくせねば」とか、あれこれ考えているうちに記事を書くことが面倒になり長続きしませんでした。
