@@ -6,32 +6,20 @@
     <description>Recent content in Posts on Kimagure Tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>jp</language>
-    <lastBuildDate>Sat, 22 Feb 2020 22:13:05 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 23 Feb 2020 00:23:46 +0900</lastBuildDate>
     
 	<atom:link href="https://ruitrek.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hugo でブログを作ってみる（た）</title>
-      <link>https://ruitrek.github.io/posts/start-blog-with-hugo/</link>
-      <pubDate>Sat, 22 Feb 2020 22:13:05 +0900</pubDate>
+      <title>Hugo Tips</title>
+      <link>https://ruitrek.github.io/posts/hugo-tips/</link>
+      <pubDate>Sun, 23 Feb 2020 00:23:46 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/start-blog-with-hugo/</guid>
-      <description>Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。
-Hugo について Hugo はオープンソースの静的サイトジェネレーターです。
-一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。
-静的サイトジェネレーターではあらかじめ静的なページを生成しておいてそれを返します。そのため、Web サーバーさえあればコンテンツを公開することが可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
-私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルを模倣して動かしてみます。
-Quick Start | Hugo
-https://gohugo.io/getting-started/quick-start/
-インストール Mac のため Home brew でインストールしました。
-Install Hugo
-https://gohugo.io/getting-started/installing/
-brew install hugo バージョン
-hugo version Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown サイトの作成 適当なディレクトリで hugo new site コマンドを実行します。
-hugo new site hugo テーマの適用 Hugo Themes にたくさんテーマがあるので好みのものを選びます。かっこいいテーマがいろいろあって悩んだので、今回はチュートリアル通り、ananke を選びました。
-cd hugo git init git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke テーマの適用
-echo &#39;theme = &amp;quot;ananke&amp;quot;&#39; &amp;gt;&amp;gt; config.</description>
+      <guid>https://ruitrek.github.io/posts/hugo-tips/</guid>
+      <description>この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は自分がつまづいたことです。新しいものを見つけたら順次更新します。
+Hugo 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &amp;lsquo;hugo&amp;rsquo; を実行します。
+GitHub Pages User and organization sites タイプで URL にアクセスすると 404 が表示されます  URL が正しいか確認してください Push から 20 分後にリトライしてみてください リポジトリ名が github.io になっているか確認してください リポジトリが Public になっているか確認してください  &amp;lsquo;https://github.io/index.html&amp;rsquo; にアクセスしてみてください  &amp;lsquo;index.html&amp;rsquo; が表示できるときは、&amp;lsquo;index.html&amp;rsquo; を更新して Push してみてください      </description>
     </item>
     
     <item>
