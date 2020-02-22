@@ -34,7 +34,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://example.org/posts/" />
-<meta property="og:updated_time" content="2020-02-22T19:00:05+09:00" />
+<meta property="og:updated_time" content="2020-02-22T22:13:05+09:00" />
 <meta itemprop="name" content="Posts">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -96,12 +96,42 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
-      <a href="http://example.org/posts/my-first-post/" class="link black dim">
-        My First Post
+      <a href="http://example.org/posts/start-blog-with-hugo/" class="link black dim">
+        Hugo でブログを作ってみる（た）
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。
+Hugo について Hugo はオープンソースの静的サイトジェネレーターです。
+一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。
+静的サイトジェネレーターでは予め静的なページを生成しておいてそれを返します。そのため、Web サーバさえあればコンテンツをコンテンツを公開可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
+私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルをやって動かしてみます。
+Quick Start | Hugo
+https://gohugo.io/getting-started/quick-start/
+インストール Mac のため Home brew でインストールしました。
+brew install hugo バージョン
+hugo version Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown サイトの作成 適当なディレクトリで hugo new site コマンドを実行します。
+hugo new site hugo テーマの適用 Hugo Themes に色々なテーマがあるので好みのものを選びます。かっこいいテーマが色々あって悩んだので、今回はチュートリアル通り、ananke を選びました。
+cd hugo git init git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke テーマの適用
+echo 'theme = &quot;ananke&quot;' &gt;&gt; config.toml 記事の作成 hugo new コマンドで記事を作成できます。 content/&lt;CATEGORY&gt;/&lt;FILE&gt;.
+    </div>
+  </div>
+</div>
+</div>
       
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="http://example.org/posts/about-this-blog/" class="link black dim">
+        このブログについて
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      こんにちはルイ (@ruitrek_) と申します。
+ブログ名はあの有名 YouTuber のチャンネル名からブログ名を拝借しました。
+これまで何度かブログに挑戦しましたが、「正確なことを書かねば」とか、「かっこよくせねば」とか、あれこれ考えているうちに記事を書くことが面倒になり長続きしませんでした。
+ブログ名の通り、技術系のネタを中心に気まぐれでやって行きたいと思います。低品質でもいいので記事を発信し続けることが目標です。
     </div>
   </div>
 </div>
