@@ -128,10 +128,49 @@
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
           この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は自分がつまづいたことです。新しいものを見つけたら順次更新します。
-Hugo 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。
+Hugo ビルドしても public フォルダに記事が出力されません 記事ファイルの draft を false に変更してください。
+draft: true ↓ draft: false 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。
 GitHub Pages User and organization sites タイプで URL にアクセスすると 404 が表示されます  URL が正しいか確認してください Push から 20 分後にリトライしてみてください リポジトリ名が github.io になっているか確認してください リポジトリが Public になっているか確認してください  &lsquo;https://github.io/index.html&rsquo; にアクセスしてみてください  &lsquo;index.html&rsquo; が表示できるときは、&lsquo;index.html&rsquo; を更新して Push してみてください      
         </div>
           <a href="https://ruitrek.github.io/posts/hugo-tips/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="https://ruitrek.github.io/posts/start-blog-with-hugo/" class="color-inherit dim link">
+            Hugo でブログを作ってみる（た）
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。
+Hugo について Hugo はオープンソースの静的サイトジェネレーターです。
+一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。
+静的サイトジェネレーターではあらかじめ静的なページを生成しておいてそれを返します。そのため、Web サーバーさえあればコンテンツを公開することが可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
+私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルを模倣して動かしてみます。
+Quick Start | Hugo
+https://gohugo.io/getting-started/quick-start/
+インストール Mac のため Home brew でインストールしました。
+Install Hugo
+https://gohugo.io/getting-started/installing/
+brew install hugo バージョン
+hugo version Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown サイトの作成 適当なディレクトリで hugo new site コマンドを実行します。
+hugo new site hugo テーマの適用 Hugo Themes にたくさんテーマがあるので好みのものを選びます。かっこいいテーマがいろいろあって悩んだので、今回はチュートリアル通り、ananke を選びました。
+cd hugo git init git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke テーマの適用
+echo 'theme = &quot;ananke&quot;' &gt;&gt; config.
+        </div>
+          <a href="https://ruitrek.github.io/posts/start-blog-with-hugo/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>

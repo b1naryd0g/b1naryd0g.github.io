@@ -27,7 +27,8 @@
     
     <meta property="og:title" content="Hugo Tips" />
 <meta property="og:description" content="この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は自分がつまづいたことです。新しいものを見つけたら順次更新します。
-Hugo 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。
+Hugo ビルドしても public フォルダに記事が出力されません 記事ファイルの draft を false に変更してください。
+draft: true ↓ draft: false 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。
 GitHub Pages User and organization sites タイプで URL にアクセスすると 404 が表示されます  URL が正しいか確認してください Push から 20 分後にリトライしてみてください リポジトリ名が github.io になっているか確認してください リポジトリが Public になっているか確認してください  &lsquo;https://github.io/index.html&rsquo; にアクセスしてみてください  &lsquo;index.html&rsquo; が表示できるときは、&lsquo;index.html&rsquo; を更新して Push してみてください      " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ruitrek.github.io/posts/hugo-tips/" />
@@ -35,18 +36,20 @@ GitHub Pages User and organization sites タイプで URL にアクセスする�
 <meta property="article:modified_time" content="2020-02-23T00:23:46+09:00" />
 <meta itemprop="name" content="Hugo Tips">
 <meta itemprop="description" content="この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は自分がつまづいたことです。新しいものを見つけたら順次更新します。
-Hugo 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。
+Hugo ビルドしても public フォルダに記事が出力されません 記事ファイルの draft を false に変更してください。
+draft: true ↓ draft: false 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。
 GitHub Pages User and organization sites タイプで URL にアクセスすると 404 が表示されます  URL が正しいか確認してください Push から 20 分後にリトライしてみてください リポジトリ名が github.io になっているか確認してください リポジトリが Public になっているか確認してください  &lsquo;https://github.io/index.html&rsquo; にアクセスしてみてください  &lsquo;index.html&rsquo; が表示できるときは、&lsquo;index.html&rsquo; を更新して Push してみてください      ">
 <meta itemprop="datePublished" content="2020-02-23T00:23:46&#43;09:00" />
 <meta itemprop="dateModified" content="2020-02-23T00:23:46&#43;09:00" />
-<meta itemprop="wordCount" content="42">
+<meta itemprop="wordCount" content="55">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hugo Tips"/>
 <meta name="twitter:description" content="この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は自分がつまづいたことです。新しいものを見つけたら順次更新します。
-Hugo 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。
+Hugo ビルドしても public フォルダに記事が出力されません 記事ファイルの draft を false に変更してください。
+draft: true ↓ draft: false 記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？ 記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。
 GitHub Pages User and organization sites タイプで URL にアクセスすると 404 が表示されます  URL が正しいか確認してください Push から 20 分後にリトライしてみてください リポジトリ名が github.io になっているか確認してください リポジトリが Public になっているか確認してください  &lsquo;https://github.io/index.html&rsquo; にアクセスしてみてください  &lsquo;index.html&rsquo; が表示できるときは、&lsquo;index.html&rsquo; を更新して Push してみてください      "/>
 
   </head>
@@ -140,7 +143,12 @@ GitHub Pages User and organization sites タイプで URL にアクセスする�
     </header>
     <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は自分がつまづいたことです。新しいものを見つけたら順次更新します。</p>
 <h2 id="hugo">Hugo</h2>
-<h3 id="記事の名前を間違えてしまいました記事の削除するにはどうしたらいいですか">記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？</h3>
+<h3 id="ビルドしても-public-フォルダに記事が出力されません">ビルドしても public フォルダに記事が出力されません</h3>
+<p>記事ファイルの draft を false に変更してください。</p>
+<pre><code>draft: true
+↓
+draft: false
+</code></pre><h3 id="記事の名前を間違えてしまいました記事の削除するにはどうしたらいいですか">記事の名前を間違えてしまいました。記事の削除するにはどうしたらいいですか？</h3>
 <p>記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルド &lsquo;hugo&rsquo; を実行します。</p>
 <h2 id="github-pages">GitHub Pages</h2>
 <h3 id="user-and-organization-sites-タイプで-url-にアクセスすると-404-が表示されます">User and organization sites タイプで URL にアクセスすると 404 が表示されます</h3>
