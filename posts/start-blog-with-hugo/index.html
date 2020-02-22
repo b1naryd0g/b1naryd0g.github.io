@@ -29,16 +29,18 @@
 <meta property="og:description" content="Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。
 Hugo について Hugo はオープンソースの静的サイトジェネレーターです。
 一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。
-静的サイトジェネレーターでは予め静的なページを生成しておいてそれを返します。そのため、Web サーバさえあればコンテンツをコンテンツを公開可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
-私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルをやって動かしてみます。
+静的サイトジェネレーターではあらかじめ静的なページを生成しておいてそれを返します。そのため、Web サーバーさえあればコンテンツを公開することが可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
+私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルを模倣して動かしてみます。
 Quick Start | Hugo
 https://gohugo.io/getting-started/quick-start/
 インストール Mac のため Home brew でインストールしました。
+Install Hugo
+https://gohugo.io/getting-started/installing/
 brew install hugo バージョン
 hugo version Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown サイトの作成 適当なディレクトリで hugo new site コマンドを実行します。
-hugo new site hugo テーマの適用 Hugo Themes に色々なテーマがあるので好みのものを選びます。かっこいいテーマが色々あって悩んだので、今回はチュートリアル通り、ananke を選びました。
+hugo new site hugo テーマの適用 Hugo Themes にたくさんテーマがあるので好みのものを選びます。かっこいいテーマがいろいろあって悩んだので、今回はチュートリアル通り、ananke を選びました。
 cd hugo git init git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke テーマの適用
-echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config.toml 記事の作成 hugo new コマンドで記事を作成できます。 content/&lt;CATEGORY&gt;/&lt;FILE&gt;." />
+echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ruitrek.github.io/posts/start-blog-with-hugo/" />
 <meta property="article:published_time" content="2020-02-22T22:13:05+09:00" />
@@ -47,19 +49,21 @@ echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config.toml 記事の作成 h
 <meta itemprop="description" content="Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。
 Hugo について Hugo はオープンソースの静的サイトジェネレーターです。
 一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。
-静的サイトジェネレーターでは予め静的なページを生成しておいてそれを返します。そのため、Web サーバさえあればコンテンツをコンテンツを公開可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
-私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルをやって動かしてみます。
+静的サイトジェネレーターではあらかじめ静的なページを生成しておいてそれを返します。そのため、Web サーバーさえあればコンテンツを公開することが可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
+私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルを模倣して動かしてみます。
 Quick Start | Hugo
 https://gohugo.io/getting-started/quick-start/
 インストール Mac のため Home brew でインストールしました。
+Install Hugo
+https://gohugo.io/getting-started/installing/
 brew install hugo バージョン
 hugo version Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown サイトの作成 適当なディレクトリで hugo new site コマンドを実行します。
-hugo new site hugo テーマの適用 Hugo Themes に色々なテーマがあるので好みのものを選びます。かっこいいテーマが色々あって悩んだので、今回はチュートリアル通り、ananke を選びました。
+hugo new site hugo テーマの適用 Hugo Themes にたくさんテーマがあるので好みのものを選びます。かっこいいテーマがいろいろあって悩んだので、今回はチュートリアル通り、ananke を選びました。
 cd hugo git init git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke テーマの適用
-echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config.toml 記事の作成 hugo new コマンドで記事を作成できます。 content/&lt;CATEGORY&gt;/&lt;FILE&gt;.">
+echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config.">
 <meta itemprop="datePublished" content="2020-02-22T22:13:05&#43;09:00" />
 <meta itemprop="dateModified" content="2020-02-22T22:13:05&#43;09:00" />
-<meta itemprop="wordCount" content="406">
+<meta itemprop="wordCount" content="461">
 
 
 
@@ -68,16 +72,18 @@ echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config.toml 記事の作成 h
 <meta name="twitter:description" content="Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。
 Hugo について Hugo はオープンソースの静的サイトジェネレーターです。
 一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。
-静的サイトジェネレーターでは予め静的なページを生成しておいてそれを返します。そのため、Web サーバさえあればコンテンツをコンテンツを公開可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
-私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルをやって動かしてみます。
+静的サイトジェネレーターではあらかじめ静的なページを生成しておいてそれを返します。そのため、Web サーバーさえあればコンテンツを公開することが可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
+私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルを模倣して動かしてみます。
 Quick Start | Hugo
 https://gohugo.io/getting-started/quick-start/
 インストール Mac のため Home brew でインストールしました。
+Install Hugo
+https://gohugo.io/getting-started/installing/
 brew install hugo バージョン
 hugo version Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown サイトの作成 適当なディレクトリで hugo new site コマンドを実行します。
-hugo new site hugo テーマの適用 Hugo Themes に色々なテーマがあるので好みのものを選びます。かっこいいテーマが色々あって悩んだので、今回はチュートリアル通り、ananke を選びました。
+hugo new site hugo テーマの適用 Hugo Themes にたくさんテーマがあるので好みのものを選びます。かっこいいテーマがいろいろあって悩んだので、今回はチュートリアル通り、ananke を選びました。
 cd hugo git init git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke テーマの適用
-echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config.toml 記事の作成 hugo new コマンドで記事を作成できます。 content/&lt;CATEGORY&gt;/&lt;FILE&gt;."/>
+echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config."/>
 
   </head>
 
@@ -172,12 +178,14 @@ echo &#39;theme = &quot;ananke&quot;&#39; &gt;&gt; config.toml 記事の作成 h
 <h2 id="hugo-について">Hugo について</h2>
 <p>Hugo はオープンソースの静的サイトジェネレーターです。</p>
 <p>一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。</p>
-<p>静的サイトジェネレーターでは予め静的なページを生成しておいてそれを返します。そのため、Web サーバさえあればコンテンツをコンテンツを公開可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。</p>
-<p>私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルをやって動かしてみます。</p>
+<p>静的サイトジェネレーターではあらかじめ静的なページを生成しておいてそれを返します。そのため、Web サーバーさえあればコンテンツを公開することが可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。</p>
+<p>私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルを模倣して動かしてみます。</p>
 <p>Quick Start | Hugo<br>
 <a href="https://gohugo.io/getting-started/quick-start/">https://gohugo.io/getting-started/quick-start/</a></p>
 <h2 id="インストール">インストール</h2>
 <p>Mac のため Home brew でインストールしました。</p>
+<p>Install Hugo<br>
+<a href="https://gohugo.io/getting-started/installing/">https://gohugo.io/getting-started/installing/</a></p>
 <pre><code>brew install hugo
 </code></pre><p>バージョン</p>
 <pre><code>hugo version
@@ -186,7 +194,7 @@ Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown
 <p>適当なディレクトリで <code>hugo new site</code> コマンドを実行します。</p>
 <pre><code>hugo new site hugo
 </code></pre><h2 id="テーマの適用">テーマの適用</h2>
-<p><a href="https://themes.gohugo.io/">Hugo Themes</a> に色々なテーマがあるので好みのものを選びます。かっこいいテーマが色々あって悩んだので、今回はチュートリアル通り、ananke を選びました。</p>
+<p><a href="https://themes.gohugo.io/">Hugo Themes</a> にたくさんテーマがあるので好みのものを選びます。かっこいいテーマがいろいろあって悩んだので、今回はチュートリアル通り、ananke を選びました。</p>
 <pre><code>cd hugo
 git init
 git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
@@ -203,9 +211,9 @@ date: 2020-02-22T16:28:05+09:00
 draft: true
 ---
 </code></pre><h2 id="記事のプレビュー">記事のプレビュー</h2>
-<p>作った記事はビルトイン Web サーバを起動してローカルでプレビューすることができます。<code>-D</code> オプションはドラフト (<code>draft: true</code>) の状態の記事を表示するオプションです。</p>
+<p>作った記事はビルトイン Web サーバーを起動してローカルでプレビューできます。<code>-D</code> オプションはドラフト (<code>draft: true</code>) の状態の記事を表示するオプションです。</p>
 <pre><code>hugo server -D
-</code></pre><p>hugo server を起動したら、ブラウザで <code>http://localhost:1313/</code>  にアクセスして出来栄えを確認しましょう。</p>
+</code></pre><p>hugo server を起動したら、ブラウザーで <code>http://localhost:1313/</code>  にアクセスして出来栄えを確認しましょう。</p>
 <h2 id="テーマのカスタマイズ">テーマのカスタマイズ</h2>
 <p><code>config.toml</code>  をいじってサイトの設定を変更します。私は以下の用にしました。タイトルは何も考えてなかったので、あの有名な料理系 YouTuber のチャンネル名からアイディアを拝借しました。</p>
 <p>Configure Hugo<br>
@@ -234,7 +242,7 @@ Building sites … WARN 2020/02/22 15:53:52 Page.URL is deprecated and will be r
 Total in 37 ms
 </code></pre><p>おやおや、なにやら警告がでてますね。使い始めたばかりなのにいきなり deprecated な機能を引いてしまったみたいです・・・ <code>Page.URL</code> というのはページごとの変数らしいのですが、なんとなくテーマ側の話な気がするし、そもそも今は解決する知識も能力もないので無視することにしました笑</p>
 <h2 id="記事の公開">記事の公開</h2>
-<p>公式サイトに色々なホスティングとデプロイの方法が書いてあるので、それを参考にします。私は GitHub Pages を使ってみたかったので、Host on GitHub を選びました。</p>
+<p>公式サイトにいろいろなホスティングとデプロイの方法が書いてあるので、それを参考にします。私は GitHub Pages を使ってみたかったので、Host on GitHub を選びました。</p>
 <p>Hosting &amp; Deployment<br>
 <a href="https://gohugo.io/hosting-and-deployment/">https://gohugo.io/hosting-and-deployment/</a></p>
 <p>Host on GitHub<br>
@@ -253,7 +261,7 @@ e.g.) <code>https://&lt;USERNAME|ORGANIZATION&gt;.github.io/&lt;PROJECT&gt;/</co
 <li>ブログ管理用: リポジトリ名はなんでもいいです (例: blog)。public ディレクトリ以外プロジェクト全体を管理します。</li>
 <li>公開コンテンツ用: リポジトリ名を <strong><code>&lt;USERNAME&gt;.github.io</code></strong> にします。<code>Initialize this repository with a README</code> にチェックを入れて作ります。</li>
 </ul>
-<p>なお、GitHub 非課金ユーザは、公開コンテンツ用のリポジトリを Public にする必要があるみたいです。GitHub のブログ管理用のリポジトリは Private でも大丈夫です。私は Private で作ってしまったのでしばらく悩みました。</p>
+<p>なお、GitHub 非課金ユーザーは、公開コンテンツ用のリポジトリを Public にする必要があるみたいです。GitHub のブログ管理用のリポジトリは Private でも大丈夫です。私は Private で作ってしまったのでしばらく悩みました。</p>
 <p>About GitHub Pages<br>
 <a href="https://help.github.com/en/github/working-with-github-pages/about-github-pages">https://help.github.com/en/github/working-with-github-pages/about-github-pages</a></p>
 <blockquote>
@@ -287,7 +295,12 @@ index 68451fb..5930227 100644
 git add .
 git commit -m &quot;rebuilding site $(LANG=C date)&quot;
 git push origin master
-</code></pre><p>しばらくすると、https://<!-- raw HTML omitted -->github.io で記事が見れるようになります。</p>
+</code></pre><p>しばらく反映を待つと、https://<!-- raw HTML omitted -->github.io で記事が閲覧できます。20 分くらい掛かることもあるみたいなので、コーヒーでも飲んでゆっくり待ちましょう。1 時間待っても表示されなかったら、何かがおかしいです。</p>
+<p>Creating a GitHub Pages site
+<a href="https://help.github.com/en/github/working-with-github-pages/creating-a-github-pages-site">https://help.github.com/en/github/working-with-github-pages/creating-a-github-pages-site</a></p>
+<blockquote>
+<p>Note: It can take up to 20 minutes for changes to your site to publish after you push the changes to GitHub. If your don&rsquo;t see your changes reflected in your browser after an hour, see &ldquo;About Jekyll build errors for GitHub Pages sites.&rdquo;</p>
+</blockquote>
 <ul class="pa0">
   
 </ul>

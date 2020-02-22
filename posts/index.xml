@@ -20,16 +20,18 @@
       <description>Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。
 Hugo について Hugo はオープンソースの静的サイトジェネレーターです。
 一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。
-静的サイトジェネレーターでは予め静的なページを生成しておいてそれを返します。そのため、Web サーバさえあればコンテンツをコンテンツを公開可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
-私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルをやって動かしてみます。
+静的サイトジェネレーターではあらかじめ静的なページを生成しておいてそれを返します。そのため、Web サーバーさえあればコンテンツを公開することが可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。
+私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルを模倣して動かしてみます。
 Quick Start | Hugo
 https://gohugo.io/getting-started/quick-start/
 インストール Mac のため Home brew でインストールしました。
+Install Hugo
+https://gohugo.io/getting-started/installing/
 brew install hugo バージョン
 hugo version Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown サイトの作成 適当なディレクトリで hugo new site コマンドを実行します。
-hugo new site hugo テーマの適用 Hugo Themes に色々なテーマがあるので好みのものを選びます。かっこいいテーマが色々あって悩んだので、今回はチュートリアル通り、ananke を選びました。
+hugo new site hugo テーマの適用 Hugo Themes にたくさんテーマがあるので好みのものを選びます。かっこいいテーマがいろいろあって悩んだので、今回はチュートリアル通り、ananke を選びました。
 cd hugo git init git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke テーマの適用
-echo &#39;theme = &amp;quot;ananke&amp;quot;&#39; &amp;gt;&amp;gt; config.toml 記事の作成 hugo new コマンドで記事を作成できます。 content/&amp;lt;CATEGORY&amp;gt;/&amp;lt;FILE&amp;gt;.</description>
+echo &#39;theme = &amp;quot;ananke&amp;quot;&#39; &amp;gt;&amp;gt; config.</description>
     </item>
     
     <item>
