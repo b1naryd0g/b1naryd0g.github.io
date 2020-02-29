@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Kimagure Tech  | Arch Linux をインストールして遊ぶ</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.65.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.1cb140d8ba31d5b2f1114537dd04802a.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="Arch Linux をインストールして遊ぶ" />
+<meta property="og:description" content="家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ruitrek.github.io/posts/install_archlinux/" />
+<meta property="article:published_time" content="2020-02-28T13:25:40+09:00" />
+<meta property="article:modified_time" content="2020-02-28T13:25:40+09:00" />
+<meta itemprop="name" content="Arch Linux をインストールして遊ぶ">
+<meta itemprop="description" content="家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。">
+<meta itemprop="datePublished" content="2020-02-28T13:25:40&#43;09:00" />
+<meta itemprop="dateModified" content="2020-02-28T13:25:40&#43;09:00" />
+<meta itemprop="wordCount" content="758">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Arch Linux をインストールして遊ぶ"/>
+<meta name="twitter:description" content="家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://ruitrek.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Kimagure Tech
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://ruitrek.github.io/posts/install_archlinux/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://ruitrek.github.io/posts/install_archlinux/&amp;text=Arch%20Linux%20%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%97%e3%81%a6%e9%81%8a%e3%81%b6" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://ruitrek.github.io/posts/install_archlinux/&amp;title=Arch%20Linux%20%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%97%e3%81%a6%e9%81%8a%e3%81%b6" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+      <h1 class="f1 athelas mt3 mb1">Arch Linux をインストールして遊ぶ</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-02-28T13:25:40&#43;09:00">February 28, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。</p>
+<h2 id="toc">TOC</h2>
+<ul>
+<li><a href="#toc">TOC</a></li>
+<li><a href="#%e6%ba%96%e5%82%99">準備</a></li>
+<li><a href="#%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%81%ae%e6%8e%a5%e7%b6%9a%e3%81%a8-sshd-%e3%81%ae%e8%b5%b7%e5%8b%95">ネットワークの接続と sshd の起動</a></li>
+<li><a href="#%e3%83%91%e3%83%bc%e3%83%86%e3%82%a3%e3%82%b7%e3%83%a7%e3%83%b3%e3%81%ae%e4%bd%9c%e6%88%90%e3%81%a8%e3%83%95%e3%82%a9%e3%83%bc%e3%83%9e%e3%83%83%e3%83%88">パーティションの作成とフォーマット</a></li>
+<li><a href="#%e3%83%9f%e3%83%a9%e3%83%bc%e3%82%b5%e3%83%bc%e3%83%90%e3%81%ae%e9%81%b8%e6%8a%9e">ミラーサーバの選択</a></li>
+<li><a href="#%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab">システムのインストール</a></li>
+<li><a href="#root-%e3%81%ae%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e8%a8%ad%e5%ae%9a">root のパスワード設定</a></li>
+<li><a href="#initramfs-%e3%81%ae%e4%bd%9c%e6%88%90">initramfs の作成</a></li>
+<li><a href="#grub-%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab">grub のインストール</a></li>
+<li><a href="#os-%e3%81%ae%e3%82%b7%e3%83%a3%e3%83%83%e3%83%88%e3%83%80%e3%82%a6%e3%83%b3%e3%81%a8%e8%b5%b7%e5%8b%95">OS のシャットダウンと起動</a></li>
+<li><a href="#%e5%bf%85%e9%a0%88%e3%81%a7%e3%81%af%e3%81%aa%e3%81%84%e3%81%91%e3%81%a9%e3%82%84%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%a8%e4%be%bf%e5%88%a9%e3%81%aa%e8%a8%ad%e5%ae%9a%e3%81%9f%e3%81%a1">必須ではないけどやっておくと便利な設定たち</a>
+<ul>
+<li><a href="#%e3%81%84%e3%81%9a%e3%82%8c%e4%bd%bf%e3%81%84%e3%81%9d%e3%81%86%e3%81%aa%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%81%9f%e3%81%a1%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab">いずれ使いそうなパッケージたちのインストール</a></li>
+<li><a href="#%e7%ae%a1%e7%90%86%e8%80%85%e3%83%a6%e3%83%bc%e3%82%b6%e3%81%ae%e4%bd%9c%e6%88%90">管理者ユーザの作成</a></li>
+<li><a href="#%e3%82%bf%e3%82%a4%e3%83%a0%e3%82%be%e3%83%bc%e3%83%b3%e3%81%a8%e3%83%ad%e3%83%bc%e3%82%ab%e3%83%a9%e3%82%a4%e3%82%bc%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3">タイムゾーンとローカライゼーション</a></li>
+<li><a href="#%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af">ネットワーク</a></li>
+<li><a href="#%e3%83%95%e3%82%a1%e3%82%a4%e3%82%a2%e3%82%a6%e3%82%a9%e3%83%bc%e3%83%ab">ファイアウォール</a></li>
+<li><a href="#%e3%83%9f%e3%83%a9%e3%83%bc%e3%81%ae%e9%81%b8%e6%8a%9e">ミラーの選択</a></li>
+<li><a href="#ntpd">ntpd</a></li>
+<li><a href="#sshd">sshd</a></li>
+<li><a href="#arch-user-repository-aur">Arch User Repository (AUR)</a></li>
+<li><a href="#rsyslog">rsyslog</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="準備">準備</h2>
+<p>インストール用の USB スティックを作成します。iso をダウンロードして dd するのが簡単です。</p>
+<p>USB flash installation media:<br>
+<a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media">https://wiki.archlinux.org/index.php/USB_flash_installation_media</a></p>
+<h2 id="ネットワークの接続と-sshd-の起動">ネットワークの接続と sshd の起動</h2>
+<p>Arch に優しいインストーラーはありません。 私はインストール中にググりたいしコピペもしたい軟弱者なので、何よりも先に IP アドレスを割り当てて ssh で接続します。</p>
+<p>dhcpd はあらかじめ有効になっているので、dhcp が有効なネットワークでは固定 IP アドレスを設定しなくても大丈夫です。</p>
+<pre><code># IP アドレスとルーティングの設定
+ip address add 192.0.2.0/24 dev eth0
+ip link set eth0 up
+ip route add default via 192.0.2.1
+echo 'nameserver 192.0.2.1' &gt; /etc/resolve.conf
+
+# root のパスワードの設定 (SSH 用)
+passwd
+
+# sshd の起動
+sytemctl start sshd.service
+</code></pre><h2 id="パーティションの作成とフォーマット">パーティションの作成とフォーマット</h2>
+<p>BIOS か UEFI か、私は特にこだわりはないのです。今回は UEFI が使えるマシンだったので UEFI で作ることにします。
+ファイルシステムは一般的な感じで作ります。ZFS とか btrfs で遊ぶのもいいですが、今回は手間をかけずに動いてほしいので一般的なの環境を作ります。</p>
+<pre><code># パーティショニング
+sgdisk -Z /dev/sda
+sgdisk -n 1::+512M -t 1:ef00 -c 1:efi /dev/sda
+sgdisk -n 2:: -t 2:8e00 -c 2:vg_local /dev/sda
+sgdisk -p /dev/sda
+
+# LVM
+pvcreate /dev/sda2
+vgcreate vg_local /dev/sda2  
+lvcreate --size 512M --name lv_boot /dev/vg_local
+lvcreate --size 1G --name lv_swap /dev/vg_local
+lvcreate --size 16G --name lv_root /dev/vg_local
+
+# ファイルシステムの作成
+mkfs.vfat -n EFI -F32 /dev/sda1
+mkfs.ext4 -L BOOT /dev/vg_local/lv_boot
+mkfs.xfs -L ROOT /dev/vg_local/lv_root
+mkswap -L SWAP /dev/vg_local/lv_swap
+
+# マウント
+mount -o defaults,discard LABEL=ROOT /mnt
+mkdir /mnt/boot
+mount -o defaults LABEL=BOOT /mnt/boot
+mkdir /mnt/boot/efi
+mount -o defaults LABEL=EFI /mnt/boot/efi
+swapon -L SWAP
+</code></pre><blockquote>
+<p>Unified Extensible Firmware Interface:<br>
+<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface">https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface</a><br>
+LVM (Linux):<br>
+<a href="https://wiki.archlinux.org/index.php/LVM">https://wiki.archlinux.org/index.php/LVM</a></p>
+</blockquote>
+<h2 id="ミラーサーバの選択">ミラーサーバの選択</h2>
+<p>デフォルトでは各国のサーバが有効になっているので日本の距離が近いサーバを選びたいです。mirrorlist の上から順番に使われるので、以下の行をファイルの先頭に持ってきます。</p>
+<pre><code># /etc/pacman.d/mirrorlist
+Server = http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/$repo/os/$arch
+</code></pre><p>なお、万が一 mirrorlist を消してしまった時は、<a href="https://www.archlinux.org/mirrorlist/all/">このサイト</a> から元のリストを入手できます。</p>
+<blockquote>
+<p>Mirrors:<br>
+<a href="https://wiki.archlinux.org/index.php/Mirrors">https://wiki.archlinux.org/index.php/Mirrors</a></p>
+</blockquote>
+<h2 id="システムのインストール">システムのインストール</h2>
+<p>基本的なパッケージのインストールなど Arch インストールお決まりの作業。</p>
+<pre><code>pacstrap /mnt base linux linux-firmware
+# fstab の作成
+genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+# chroot
+arch-chroot /mnt
+</code></pre><blockquote>
+<p>Installation guide:
+<a href="https://wiki.archlinux.org/index.php/Installation_guide#Install_essential_packages">https://wiki.archlinux.org/index.php/Installation_guide#Install_essential_packages</a></p>
+</blockquote>
+<h2 id="root-のパスワード設定">root のパスワード設定</h2>
+<p>私、この作業をよくやり忘れます・・・。 リブート後に root でログインできずに USB スティックで起動し直す羽目になるので地味に面倒です。忘れずにやりましょう。</p>
+<p>また、次の initramfs の設定前に <a href="#%e5%bf%85%e9%a0%88%e3%81%a7%e3%81%af%e3%81%aa%e3%81%84%e3%81%91%e3%81%a9%e3%82%84%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%a8%e4%be%bf%e5%88%a9%e3%81%aa%e8%a8%ad%e5%ae%9a%e3%81%9f%e3%81%a1">必須ではないけどやっておくと便利な設定たち</a> の中から気分で選んで設定しています。最低限ネットワークは設定した方がいいかなと思います。</p>
+<h2 id="initramfs-の作成">initramfs の作成</h2>
+<p>lvm2 を hooks に追加します。</p>
+<pre><code>HOOKS=(... lvm2 ...)
+</code></pre><p>initramfs を作成します</p>
+<pre><code>mkinitcpio -p linux
+</code></pre><blockquote>
+<p>mkinitcpio:<br>
+<a href="https://wiki.archlinux.org/index.php/Mkinitcpio">https://wiki.archlinux.org/index.php/Mkinitcpio</a><br>
+Install Arch Linux on LVM:
+<a href="https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_LVM#Adding_mkinitcpio_hooks">https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_LVM#Adding_mkinitcpio_hooks</a></p>
+</blockquote>
+<h2 id="grub-のインストール">grub のインストール</h2>
+<pre><code># パッケージのインストール
+pacman -S grub efibootmgr
+# grub のインストール
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+# OR
+# grub-install --target=x86_64-efi --efi-directory=/boot/efi --removable
+</code></pre><p>UEFI 環境によっては指定の場所 <code>/EFI/boot/bootx64.efi</code> に置かないと起動できないものがあり、<code>--removable</code> をつけるとそこにインストールしてくれます。手動でコピーしてもいいのですが、ブートエントリが 1 つであればこのオプションが楽です。</p>
+<pre><code># LVM 用のモジュールを追加
+# /etc/default/grub
+GRUB_PRELOAD_MODULES=&quot;... lvm&quot;
+</code></pre><pre><code># grub 設定の作成
+grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre><blockquote>
+<p>GRUB:<br>
+<a href="https://wiki.archlinux.org/index.php/GRUB">https://wiki.archlinux.org/index.php/GRUB</a></p>
+</blockquote>
+<h2 id="os-のシャットダウンと起動">OS のシャットダウンと起動</h2>
+<p>緊張の瞬間ですね。シャットダウン後に USB スティックを抜いて起動します。次に起動した時に無事にローカルディスクから起動してくれれば成功です。もし起動しなかった時は USB スティックから起動して必要な箇所を修正します。</p>
+<pre><code>exit # or Ctrl+D で chroot を終了して
+shutdown -h now
+</code></pre><h2 id="必須ではないけどやっておくと便利な設定たち">必須ではないけどやっておくと便利な設定たち</h2>
+<h3 id="いずれ使いそうなパッケージたちのインストール">いずれ使いそうなパッケージたちのインストール</h3>
+<pre><code>pacman -S xfsprogs dosfstools usbutils hdparm lvm2 vim git man tmux gptfdisk dstat
+</code></pre><h3 id="管理者ユーザの作成">管理者ユーザの作成</h3>
+<pre><code>pacman -S sudo
+useradd -m -G wheel ruitrek
+passwd ruitrek
+cp /etc/sudoers{,.backup}
+sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+</code></pre><blockquote>
+<p>Users and groups:<br>
+<a href="https://wiki.archlinux.org/index.php/Users_and_groups">https://wiki.archlinux.org/index.php/Users_and_groups</a></p>
+</blockquote>
+<h3 id="タイムゾーンとローカライゼーション">タイムゾーンとローカライゼーション</h3>
+<p>サーバとして使うので最低限の設定ですね。デスクトップとして利用される場合は <code>ja_JP.UTF-8 UTF-8</code> などのロケールを有効にするといいと思います。</p>
+<pre><code>ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+hwclock --systohc --utc
+sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+locale-gen
+echo LANG=en_US.UTF-8 &gt; /etc/locale.conf
+</code></pre><blockquote>
+<p>Locale:<br>
+<a href="https://wiki.archlinux.org/index.php/Locale">https://wiki.archlinux.org/index.php/Locale</a></p>
+</blockquote>
+<h3 id="ネットワーク">ネットワーク</h3>
+<p>基本的なネットワーク周りを設定していきます。systemd-networkd はシンプルで使いやすいので気に入っています。</p>
+<p>hostname の設定</p>
+<pre><code>echo arch &gt; /etc/hostname
+cat &lt;&lt; EOF &gt;&gt; /etc/hosts
+127.0.0.1   localhost localhost.localdomain arch
+::1         localhost localhost.localdomain arch
+EOF
+</code></pre><p>nic 名の変更。MAC アドレスか DEVPATH かどちかを指定して固定します。</p>
+<ul>
+<li>MAC アドレスは <code>ip link show &lt;dev&gt;</code>  で調べられます</li>
+<li>DEVPATH は <code>file /sys/class/net/*</code>  で調べられます</li>
+</ul>
+<pre><code># /etc/udev/rules.d/10-network.rules
+SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;aa:bb:cc:dd:ee:ff&quot;, NAME=&quot;eth0&quot;
+# OR
+SUBSYSTEM==&quot;net&quot;, DEVPATH==&quot;/devices/platform/wemac.*&quot;, NAME=&quot;eth0&quot;
+
+# udevadm コマンドでルールが適用されるか調べることができます
+#  e.g.) 元の nic が eno1 の場合
+#  # udevadm test /sys/class/net/eno1/ 2&gt;/dev/null | grep SYSTEMD_ALIAS0
+#  SYSTEMD_ALIAS=/sys/subsystem/net/devices/eth0
+</code></pre><p>systemd-networkd 設定ファイルの作成</p>
+<ul>
+<li>DHCP の場合</li>
+</ul>
+<pre><code>cat &lt;&lt; EOF &gt; /etc/systemd/network/20-wired.network
+[Match]
+Name=eth0
+
+[Network]
+DHCP=yes
+EOF
+</code></pre><ul>
+<li>Static の場合</li>
+</ul>
+<pre><code>cat &lt;&lt; EOF &gt; /etc/systemd/network/20-wired.network
+[Match]
+Name=eth0
+
+[Link]
+# MTUBytes=9000
+
+[Network]
+Address=192.0.2.2/24
+Gateway=192.0.2.1
+DNS=192.2.0.1
+# DNS=1.1.1.1
+# DNS=1.0.0.1
+EOF
+</code></pre><p>systemd-networkd 自動起動の設定</p>
+<pre><code>systemctl enable systemd-networkd.service
+systemctl enable systemd-resolved.service
+</code></pre><blockquote>
+<p>Network configuration:<br>
+<a href="https://wiki.archlinux.org/index.php/Network_configuration">https://wiki.archlinux.org/index.php/Network_configuration</a><br>
+systemd-networkd:<br>
+<a href="https://wiki.archlinux.org/index.php/Systemd-networkd">https://wiki.archlinux.org/index.php/Systemd-networkd</a></p>
+</blockquote>
+<h3 id="ファイアウォール">ファイアウォール</h3>
+<p><code>iptables</code> より使いやすくなった（らしい）<code>ntfables</code> を使ってみたいと思います。私は今回が初めてのチャレンジです。</p>
+<pre><code># パッケージのインストールと有効化
+pacman -S nftables
+systemctl enable nftables
+</code></pre><p>デフォルトでは icmp, ipmpv6, ssh が許可されています。インストール直後はこれで困りませんのでこのまま利用します。</p>
+<pre><code># デーモンの起動後に nft list ruleset で確認できます
+# 設定ファイルは /etc/nftables.conf です
+table inet filter {
+        chain input {
+                type filter hook input priority filter; policy accept;
+                ct state { established, related } accept
+                ct state invalid drop
+                iifname &quot;lo&quot; accept
+                ip protocol icmp accept
+                ip6 nexthdr ipv6-icmp accept
+                tcp dport 22 accept
+                reject
+        }
+
+        chain forward {
+                type filter hook forward priority filter; policy accept;
+                drop
+        }
+
+        chain output {
+                type filter hook output priority filter; policy accept;
+        }
+}
+</code></pre><blockquote>
+<p>nftables:<br>
+<a href="https://wiki.archlinux.org/index.php/Nftables">https://wiki.archlinux.org/index.php/Nftables</a></p>
+</blockquote>
+<h3 id="ミラーの選択">ミラーの選択</h3>
+<pre><code>pacman -S pacman-contrib
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+curl -o /etc/pacman.d/mirrorlist.generator 'https://www.archlinux.org/mirrorlist/?country=JP&amp;protocol=http&amp;protocol=https&amp;ip_version=4&amp;ip_version=6&amp;use_mirror_status=on'
+sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.generator
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.generator &gt; /etc/pacman.d/mirrorlist
+</code></pre><h3 id="ntpd">ntpd</h3>
+<p>一般的な ntpd をセットアップします。お好みで <code>systemd-timesyncd</code> とか <code>chrony</code> とかを使ってもいいと思います。</p>
+<pre><code>pacman -S ntp
+</code></pre><p>インターネットマルチフィード(MFEED) が提供してくれている NTP サーバを設定 ntpd を有効にします。</p>
+<pre><code># /etc/ntp.conf 
+server ntp1.jst.mfeed.ad.jp
+server ntp2.jst.mfeed.ad.jp
+server ntp3.jst.mfeed.ad.jp
+</code></pre><pre><code>systemctl enable ntpd
+</code></pre><blockquote>
+<p>NTP:<br>
+<a href="https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon">https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon</a></p>
+</blockquote>
+<h3 id="sshd">sshd</h3>
+<pre><code>pacman -S openssh
+systemctl enable sshd.service
+</code></pre><blockquote>
+<p>Secure Shell:<br>
+<a href="https://wiki.archlinux.org/index.php/Secure_Shell">https://wiki.archlinux.org/index.php/Secure_Shell</a></p>
+</blockquote>
+<h3 id="arch-user-repository-aur">Arch User Repository (AUR)</h3>
+<p>Arch には、公式リポジトリとは別にコミュニティで運用されている AUR と呼ばれるリポジトリがあります。通常、AUR のパッケージは自分でビルドする必要がありますが、この作業をやってくれるヘルパープログラムがあるのでインストールします。<code>yaourt</code>というパッケージが人気かつ有名でしたが今は廃止されていました。AUR ヘルパーはいろいろあるのでお好きなものを使えばいいと思うのですが、みんなが使ってるパッケージな方が情報も多くなにかと便利なので、<code>yay</code>をインストールします。</p>
+<ul>
+<li>makepkg コマンドは root 以外のユーザで実行しないと怒られてしまいますのでご注意ください</li>
+<li>yay コマンドは root 以外のユーザで実行してください</li>
+</ul>
+<pre><code>sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+</code></pre><blockquote>
+<p>AUR (en) - yay:<br>
+<a href="https://aur.archlinux.org/packages/yay/">https://aur.archlinux.org/packages/yay/</a></p>
+</blockquote>
+<h3 id="rsyslog">rsyslog</h3>
+<p>ElasticSearch に直接ログを投げ込みたいなーともくろんでいるので rsyslog を使います。rsyslog は AUR で提供されているので、yay でインストールします。</p>
+<pre><code>yay -S rsyslog
+mkdir /var/spool/rsyslog
+</code></pre><p>systemd-journald からログを引き取るために imjournal モジュールを追加します。</p>
+<pre><code># /etc/rsyslog.conf
+$ModLoad imjournal
+</code></pre><pre><code>sudo systemctl enable rsyslog
+</code></pre><blockquote>
+<p>Rsyslog:<br>
+<a href="https://wiki.archlinux.org/index.php/Rsyslog">https://wiki.archlinux.org/index.php/Rsyslog</a></p>
+</blockquote><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://ruitrek.github.io/" >
+    &copy;  Kimagure Tech 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

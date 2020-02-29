@@ -6,10 +6,19 @@
     <description>Recent content on Kimagure Tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>jp</language>
-    <lastBuildDate>Sun, 23 Feb 2020 00:23:46 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 28 Feb 2020 13:25:40 +0900</lastBuildDate>
     
 	<atom:link href="https://ruitrek.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Arch Linux をインストールして遊ぶ</title>
+      <link>https://ruitrek.github.io/posts/install_archlinux/</link>
+      <pubDate>Fri, 28 Feb 2020 13:25:40 +0900</pubDate>
+      
+      <guid>https://ruitrek.github.io/posts/install_archlinux/</guid>
+      <description>&lt;p&gt;家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Hugo Tips</title>
@@ -17,7 +26,7 @@
       <pubDate>Sun, 23 Feb 2020 00:23:46 +0900</pubDate>
       
       <guid>https://ruitrek.github.io/posts/hugo-tips/</guid>
-      <description>&lt;p&gt;この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は自分がつまづいたことです。新しいものを見つけたら順次更新します。&lt;/p&gt;</description>
+      <description>&lt;p&gt;この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は私がつまづいたところです。新しいものを見つけたら順次更新します。&lt;/p&gt;</description>
     </item>
     
     <item>
