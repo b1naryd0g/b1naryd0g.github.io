@@ -9,7 +9,7 @@
     <meta name="generator" content="Hugo 0.65.3" />
     
     
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
     
 
     
@@ -35,7 +35,7 @@
 <meta itemprop="description" content="家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。">
 <meta itemprop="datePublished" content="2020-02-28T13:25:40&#43;09:00" />
 <meta itemprop="dateModified" content="2020-02-28T13:25:40&#43;09:00" />
-<meta itemprop="wordCount" content="758">
+<meta itemprop="wordCount" content="877">
 
 
 
@@ -43,9 +43,11 @@
 <meta name="twitter:title" content="Arch Linux をインストールして遊ぶ"/>
 <meta name="twitter:description" content="家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。"/>
 
+      
+    
   </head>
 
-  <body class="ma0 avenir bg-near-white">
+  <body class="ma0 avenir bg-near-white production">
 
     
    
@@ -133,9 +135,8 @@
       
     </header>
     <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。</p>
-<h2 id="toc">TOC</h2>
+<p><strong>TOC</strong></p>
 <ul>
-<li><a href="#toc">TOC</a></li>
 <li><a href="#%e6%ba%96%e5%82%99">準備</a></li>
 <li><a href="#%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%81%ae%e6%8e%a5%e7%b6%9a%e3%81%a8-sshd-%e3%81%ae%e8%b5%b7%e5%8b%95">ネットワークの接続と sshd の起動</a></li>
 <li><a href="#%e3%83%91%e3%83%bc%e3%83%86%e3%82%a3%e3%82%b7%e3%83%a7%e3%83%b3%e3%81%ae%e4%bd%9c%e6%88%90%e3%81%a8%e3%83%95%e3%82%a9%e3%83%bc%e3%83%9e%e3%83%83%e3%83%88">パーティションの作成とフォーマット</a></li>
@@ -153,6 +154,7 @@
 <li><a href="#%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af">ネットワーク</a></li>
 <li><a href="#%e3%83%95%e3%82%a1%e3%82%a4%e3%82%a2%e3%82%a6%e3%82%a9%e3%83%bc%e3%83%ab">ファイアウォール</a></li>
 <li><a href="#%e3%83%9f%e3%83%a9%e3%83%bc%e3%81%ae%e9%81%b8%e6%8a%9e">ミラーの選択</a></li>
+<li><a href="#lvm">lvm</a></li>
 <li><a href="#ntpd">ntpd</a></li>
 <li><a href="#sshd">sshd</a></li>
 <li><a href="#arch-user-repository-aur">Arch User Repository (AUR)</a></li>
@@ -390,7 +392,16 @@ cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 curl -o /etc/pacman.d/mirrorlist.generator 'https://www.archlinux.org/mirrorlist/?country=JP&amp;protocol=http&amp;protocol=https&amp;ip_version=4&amp;ip_version=6&amp;use_mirror_status=on'
 sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.generator
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.generator &gt; /etc/pacman.d/mirrorlist
-</code></pre><h3 id="ntpd">ntpd</h3>
+</code></pre><h3 id="lvm">lvm</h3>
+<p>LVM の discard サポートを有効にします。lvremove などで物理ディスクの領域を必要としなくなった時に破棄してくれるようになります。(この設定は SSD の Trim とは関連しないようです。)</p>
+<pre><code># /etc/lvm/lvm.conf 
+issue_discards = 1
+</code></pre><blockquote>
+<p>lvm.conf(5) - Linux man page:<br>
+<a href="https://linux.die.net/man/5/lvm.conf">https://linux.die.net/man/5/lvm.conf</a></p>
+<p>issue_discards - Issue discards to a logical volumes&rsquo;s underlying physical volume(s) when the logical volume is no longer using the physical volumes&rsquo; space (e.g. lvremove, lvreduce, etc). Discards inform the storage that a region is no longer in use. Storage that supports discards advertise the protocol specific way discards should be issued by the kernel (TRIM, UNMAP, or WRITE SAME with UNMAP bit set). Not all storage will support or benefit from discards but SSDs and thinly provisioned LUNs generally do. If set to 1, discards will only be issued if both the storage and kernel provide support.</p>
+</blockquote>
+<h3 id="ntpd">ntpd</h3>
 <p>一般的な ntpd をセットアップします。お好みで <code>systemd-timesyncd</code> とか <code>chrony</code> とかを使ってもいいと思います。</p>
 <pre><code>pacman -S ntp
 </code></pre><p>インターネットマルチフィード(MFEED) が提供してくれている NTP サーバを設定 ntpd を有効にします。</p>

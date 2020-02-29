@@ -22,10 +22,10 @@
     
     <item>
       <title>Hugo Tips</title>
-      <link>https://ruitrek.github.io/posts/hugo-tips/</link>
+      <link>https://ruitrek.github.io/posts/hugo_tips/</link>
       <pubDate>Sun, 23 Feb 2020 00:23:46 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/hugo-tips/</guid>
+      <guid>https://ruitrek.github.io/posts/hugo_tips/</guid>
       <description>&lt;p&gt;この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は私がつまづいたところです。新しいものを見つけたら順次更新します。&lt;/p&gt;</description>
     </item>
     
