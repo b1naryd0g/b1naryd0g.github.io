@@ -6,10 +6,19 @@
     <description>Recent content on Kimagure Tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>jp</language>
-    <lastBuildDate>Fri, 28 Feb 2020 13:25:40 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 29 Feb 2020 17:49:28 +0900</lastBuildDate>
     
 	<atom:link href="https://ruitrek.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Raspberry Pi に Arch Linux をインストールする</title>
+      <link>https://ruitrek.github.io/posts/install_arch_linux_on_raspberrypi_4/</link>
+      <pubDate>Sat, 29 Feb 2020 17:49:28 +0900</pubDate>
+      
+      <guid>https://ruitrek.github.io/posts/install_arch_linux_on_raspberrypi_4/</guid>
+      <description>&lt;p&gt;Raspberry Pi 4 (RPI) を購入したので Arch を入れて遊んでみることにしました。多くの方が Raspberry Pi に Linux をインストールする記事を書かれていますので、あまり私がこの書く意味はありませんが、このブログでは低品質な記事でもアウトプットすることを目標にしているので自分への備忘録として残します。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Arch Linux をインストールして遊ぶ</title>
@@ -30,7 +39,7 @@
     </item>
     
     <item>
-      <title>Hugo でブログを作ってみる（た）</title>
+      <title>Hugo でブログを作ってみた</title>
       <link>https://ruitrek.github.io/posts/start-blog-with-hugo/</link>
       <pubDate>Sat, 22 Feb 2020 22:13:05 +0900</pubDate>
       
