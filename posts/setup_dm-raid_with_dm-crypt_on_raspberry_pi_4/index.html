@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Kimagure Tech  | Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.65.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.1cb140d8ba31d5b2f1114537dd04802a.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する" />
+<meta property="og:description" content="前回 RPI4 に Arch Linux をインストールした post の続きです。
+ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ruitrek.github.io/posts/setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/" />
+<meta property="article:published_time" content="2020-03-07T21:41:17+09:00" />
+<meta property="article:modified_time" content="2020-03-07T21:41:17+09:00" />
+<meta itemprop="name" content="Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する">
+<meta itemprop="description" content="前回 RPI4 に Arch Linux をインストールした post の続きです。
+ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。">
+<meta itemprop="datePublished" content="2020-03-07T21:41:17&#43;09:00" />
+<meta itemprop="dateModified" content="2020-03-07T21:41:17&#43;09:00" />
+<meta itemprop="wordCount" content="501">
+
+
+
+<meta itemprop="keywords" content="ArchLinux,Raspberry Pi," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する"/>
+<meta name="twitter:description" content="前回 RPI4 に Arch Linux をインストールした post の続きです。
+ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。"/>
+
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-45001119-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://ruitrek.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Kimagure Tech
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+<a href="https://twitter.com/ruitrek_" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://github.com/ruitrek" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://ruitrek.github.io/posts/setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://ruitrek.github.io/posts/setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/&amp;text=Raspberry%20Pi%204%20%e3%81%ab%20%e6%9a%97%e5%8f%b7%e5%8c%96%e3%81%97%e3%81%9f%20RAID%20%e3%83%9c%e3%83%aa%e3%83%a5%e3%83%bc%e3%83%a0%e3%82%92%e4%bd%9c%e6%88%90%e3%81%99%e3%82%8b" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://ruitrek.github.io/posts/setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/&amp;title=Raspberry%20Pi%204%20%e3%81%ab%20%e6%9a%97%e5%8f%b7%e5%8c%96%e3%81%97%e3%81%9f%20RAID%20%e3%83%9c%e3%83%aa%e3%83%a5%e3%83%bc%e3%83%a0%e3%82%92%e4%bd%9c%e6%88%90%e3%81%99%e3%82%8b" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+      <h1 class="f1 athelas mt3 mb1">Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-03-07T21:41:17&#43;09:00">March 7, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="https://ruitrek.github.io/posts/install_arch_linux_on_raspberrypi_4/">前回</a> RPI4 に Arch Linux をインストールした post の続きです。
+ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。</p>
+<h2 id="今回の構成">今回の構成</h2>
+<p>ガチャベイという USB 接続の HDD ケースと 2 TB の HDD 6 本を使ってストレージを作ります。このストレージは Mac のバックアップなど機微な情報を保存する予定のため HDD を暗号化したいと思います。</p>
+<p>暗号化の目的は HDD を処分するときに何回も上書きしたりする手間から開放されることです。HDD の盗難や押収を想定しているわけではありませんので暗号化キーは root がある Micro SD カードに保存します。もし、そういった事態も警戒される場合は、USB スティックにキーを保存するなどの対策を講じてください。</p>
+<p>なお、暗号化した RAID を実現するためには、「暗号化したディスクでアレイを作る方法」と「RAID ボリュームを暗号化する」方法があります。今回は管理が簡単な後者の方法で環境を作成していきたいと思います。</p>
+<h3 id="mdadm">mdadm</h3>
+<p>Linux のソフトウェア RAID を管理するソフトウェアです。Linux ソフトウェア RAID デバイスは、md (マルチデバイス) ドライバーを介して実装されています。</p>
+<h3 id="dm-crypt">dm-crypt</h3>
+<p>Linux カーネルバージョン 2.6 以降で利用可能なディスク暗号化カーネルモジュールです。<code>cryptsetup</code> コマンドで管理します。今回は標準的なフォーマットである LUKS を利用します。</p>
+<h2 id="raid-アレイの作成">RAID アレイの作成</h2>
+<p>mdadm をインストールします。</p>
+<pre><code>pacman -S mdadm
+</code></pre><p>lsblk で sd[a-f] のディスクが見えていますね。これを RAID アレイにします。</p>
+<pre><code>$ lsblk
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda           8:0    0  1.8T  0 disk
+sdb           8:16   0  1.8T  0 disk
+sdc           8:32   0  1.8T  0 disk
+sdd           8:48   0  1.8T  0 disk
+sde           8:64   0  1.8T  0 disk
+sdf           8:80   0  1.8T  0 disk
+</code></pre><p>RAID アレイにするディスクはパーティショニングすることが強く推奨 (highly recommended) されていますのでパーティションを作成します。</p>
+<ul>
+<li><code>FD00</code> は Linux RAID です</li>
+<li><code>-100M</code> の指定は HDD の最後に少し余裕を作っています<br>
+HDD の入れ替えが必要になった時に、HDD のサイズが違う可能性を吸収するためです。</li>
+</ul>
+<pre><code>for t in /dev/sd{a..f}; do \
+    sgdisk -Z $t
+    sgdisk -n 1::-100M -t 1:fd00 -c 1:$t $t
+</code></pre><p>mdadm で RAID10 のアレイを作ります。</p>
+<ul>
+<li>chunk size は<a href="https://louwrentius.com/linux-raid-level-and-chunk-size-the-benchmarks.html">このあたり</a>を参考に 128K にしました。</li>
+<li>f2 は far2 レイアウトとよばれ、レプリカがなるべく離れた位置に配置されます。</li>
+<li>hdd を指定する順番でペアが作成されるようです<br>
+sd[a-c], sd[d-f] は別の HDD ケースに入っているので、これらをそれぞれ (a,d)(b,e)(c,f) のペアになるように指定しました。</li>
+</ul>
+<p>アレイの同期は HDD のサイズや転送速度に応じて、それなりに時間がかかります。</p>
+<pre><code># アレイの作成
+mdadm --create --verbose --level=10 \
+    --metadata=1.2 --chunk=128 \
+    --raid-devices=6 --layout=f2 \
+    /dev/md0 \
+    /dev/sda1 /dev/sdd1 /dev/sdb1 /dev/sde1 /dev/sdc1 /dev/sdf1
+
+# 同期の進捗確認
+cat /proc/mdstat
+Personalities : [linear] [raid0] [raid1] [raid10] [raid6] [raid5] [raid4] [multipath] [faulty] 
+md0 : active raid10 sdf1[5] sdd1[1] sde1[3] sdc1[4] sda1[0] sdb1[2]
+      5859836928 blocks super 1.2 128K chunks 2 far-copies [6/6] [UUUUUU]
+      bitmap: 0/44 pages [0KB], 65536KB chunk
+
+unused devices: &lt;none&gt;
+
+# 詳細の表示 
+mdadm --detail /dev/md0
+/dev/md0:
+           Version : 1.2
+     Creation Time : Fri Feb 28 03:15:58 2020
+        Raid Level : raid10
+        Array Size : 5859836928 (5588.38 GiB 6000.47 GB)
+     Used Dev Size : 1953278976 (1862.79 GiB 2000.16 GB)
+      Raid Devices : 6
+     Total Devices : 6
+       Persistence : Superblock is persistent
+
+     Intent Bitmap : Internal
+
+       Update Time : Fri Feb 28 20:00:11 2020
+             State : clean 
+    Active Devices : 6
+   Working Devices : 6
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : far=2
+        Chunk Size : 128K
+
+Consistency Policy : bitmap
+
+              Name : alarmpi:0
+              UUID : 0b5ed1db:dec8533a:f232bb96:6c13aebc
+            Events : 10208
+
+    Number   Major   Minor   RaidDevice State
+       0       8        1        0      active sync   /dev/sda1
+       1       8       49        1      active sync   /dev/sdd1
+       2       8       17        2      active sync   /dev/sdb1
+       3       8       65        3      active sync   /dev/sde1
+       4       8       33        4      active sync   /dev/sdc1
+       5       8       81        5      active sync   /dev/sdf
+
+</code></pre><p>アレイができたらコンフィグレーションファイルにアレイの情報を書いておきます。</p>
+<pre><code>mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
+</code></pre><h2 id="暗号化ファイルシステムの作成">暗号化ファイルシステムの作成</h2>
+<p>cryptsetup のインストール</p>
+<pre><code>pacman -S cryptsetup
+</code></pre><p>暗号化ファイルシステムの作成</p>
+<pre><code># 鍵の作成
+dd bs=1MiB count=8 if=/dev/urandom of=/etc/luks.key
+# LUKS モードでアレイを暗号化
+cryptsetup luksFormat --key-file /etc/luks.key /dev/md0
+# 作成結果の確認
+cryptsetup luksDump /dev/md0
+</code></pre><h2 id="luks-パーティションのロックを解除マップ">LUKS パーティションのロックを解除・マップ</h2>
+<p>暗号化ファイルシステムを暗号化キーで開いてロックを解除します。また、ファイルシステムの情報を crypttab 書いておきましょう。起動時に自動的にロック解除できます。</p>
+<pre><code>cryptsetup open --type luks --key-file /etc/luks.key /dev/md0 cryptdata
+echo cryptdata /dev/md0 /etc/luks.key &gt;&gt; /etc/crypttab
+</code></pre><h2 id="パーティションのフォーマットとマウント">パーティションのフォーマットとマウント</h2>
+<p>私は XFS を利用することにしました。お好きなフォーマット形式を選択して fstab を書けば完成です。</p>
+<pre><code>mkfs.xfs -d su=128k -d sw=3 /dev/mapper/cryptdata
+mount /dev/mapper/cryptdata /srv
+echo /dev/mapper/cryptdata /srv xfs defaults 0 2 &gt;&gt; /etc/fstab
+</code></pre><h2 id="オプション-ディスク全体の暗号化">(オプション) ディスク全体の暗号化</h2>
+<p>書き込まれるデータは自動的に暗号化されますが、ここまでの手順では既存の HDD のブロックは暗号化されていません。過去に何かしら利用していた HDD の場合は一度全ての領域を暗号化したデータで上書きしておいた方がいいと思います。なお、容量によっては途方もない時間がかかりますのでご注意ください。</p>
+<pre><code>dd if=/dev/zero of=/srv/tmp.img bs=1M status=progress
+</code></pre><h2 id="read-more">Read more</h2>
+<p>RAID - ArchWiki:<br>
+<a href="https://wiki.archlinux.org/index.php/RAID">https://wiki.archlinux.org/index.php/RAID</a></p>
+<p>dm-crypt/Device encryption - ArchWiki:<br>
+<a href="https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption">https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption</a></p>
+<p>mdadm(8) - Linux man page:<br>
+<a href="https://linux.die.net/man/8/mdadm">https://linux.die.net/man/8/mdadm</a></p>
+<p>cryptsetup(8) - Linux man page:<br>
+<a href="https://linux.die.net/man/8/cryptsetup">https://linux.die.net/man/8/cryptsetup</a></p><ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/archlinux" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">ArchLinux</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/raspberry-pi" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Raspberry Pi</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/install_arch_linux_on_raspberrypi_4/">Raspberry Pi に Arch Linux をインストールする</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/install_archlinux/">Arch Linux をインストールして遊ぶ</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://ruitrek.github.io/" >
+    &copy;  Kimagure Tech 2020 
+  </a>
+    <div>
+
+
+
+
+<a href="https://twitter.com/ruitrek_" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://github.com/ruitrek" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
