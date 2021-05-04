@@ -2,22 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kimagure Tech</title>
-    <link>https://ruitrek.github.io/</link>
+    <link>https://b1naryd0g.github.io/</link>
     <description>Recent content on Kimagure Tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>jp</language>
-    <copyright>Copyright © 2020, ruitrek; all rights reserved.</copyright>
-    <lastBuildDate>Sun, 08 Mar 2020 02:00:18 +0900</lastBuildDate>
-    
-	<atom:link href="https://ruitrek.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>Copyright © 2020, b1naryd0g; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 08 Mar 2020 02:00:18 +0900</lastBuildDate><atom:link href="https://b1naryd0g.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Raspberry Pi に Docker をインストールする</title>
-      <link>https://ruitrek.github.io/posts/install_docker_on_raspberry_pi/</link>
+      <link>https://b1naryd0g.github.io/post/2020-03-08_install_docker_on_raspberry_pi/</link>
       <pubDate>Sun, 08 Mar 2020 02:00:18 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/install_docker_on_raspberry_pi/</guid>
+      <guid>https://b1naryd0g.github.io/post/2020-03-08_install_docker_on_raspberry_pi/</guid>
       <description>前回の続きです。Raspberry Pi に docker をインストールして、前回作った RAID ボリュームにイメージを配置します。
 パッケージのインストールと起動 Docker をインストールします。手順の中では sudo を使用しなくていいように docker グループにユーザを追加していますが、Arch の wiki に書いてある通り docker グループにユーザをすることは root になることと同意です。ご注意ください。
  Warning: Anyone added to the docker group is root equivalent. More information here and here.
@@ -26,10 +22,10 @@
     
     <item>
       <title>Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する</title>
-      <link>https://ruitrek.github.io/posts/setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/</link>
+      <link>https://b1naryd0g.github.io/post/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/</link>
       <pubDate>Sat, 07 Mar 2020 21:41:17 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/</guid>
+      <guid>https://b1naryd0g.github.io/post/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/</guid>
       <description>前回 RPI4 に Arch Linux をインストールした post の続きです。 ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。
 今回の構成 ガチャベイという USB 接続の HDD ケースと 2 TB の HDD 6 本を使ってストレージを作ります。このストレージは Mac のバックアップなど機微な情報を保存する予定のため HDD を暗号化したいと思います。
 暗号化の目的は HDD を処分するときに何回も上書きしたりする手間から開放されることです。HDD の盗難や押収を想定しているわけではありませんので暗号化キーは root がある Micro SD カードに保存します。もし、そういった事態も警戒される場合は、USB スティックにキーを保存するなどの対策を講じてください。
@@ -42,46 +38,46 @@ RAID アレイの作成 mdadm をインストールします。
     
     <item>
       <title>Raspberry Pi に Arch Linux をインストールする</title>
-      <link>https://ruitrek.github.io/posts/install_arch_linux_on_raspberrypi_4/</link>
+      <link>https://b1naryd0g.github.io/post/2020-02-29_install_arch_linux_on_raspberrypi_4/</link>
       <pubDate>Sat, 29 Feb 2020 17:49:28 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/install_arch_linux_on_raspberrypi_4/</guid>
+      <guid>https://b1naryd0g.github.io/post/2020-02-29_install_arch_linux_on_raspberrypi_4/</guid>
       <description>&lt;p&gt;Raspberry Pi 4 (RPI) を購入したので Arch を入れて遊んでみることにしました。多くの方が Raspberry Pi に Linux をインストールする記事を書かれていますので、あまり私がこの書く意味はありませんが、このブログでは低品質な記事でもアウトプットすることを目標にしているので自分への備忘録として残します。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Arch Linux をインストールして遊ぶ</title>
-      <link>https://ruitrek.github.io/posts/install_archlinux/</link>
+      <link>https://b1naryd0g.github.io/post/2020-02-28_install_archlinux/</link>
       <pubDate>Fri, 28 Feb 2020 13:25:40 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/install_archlinux/</guid>
+      <guid>https://b1naryd0g.github.io/post/2020-02-28_install_archlinux/</guid>
       <description>&lt;p&gt;家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Hugo Tips</title>
-      <link>https://ruitrek.github.io/posts/hugo_tips/</link>
+      <link>https://b1naryd0g.github.io/post/2020-02-23_hugo_tips/</link>
       <pubDate>Sun, 23 Feb 2020 00:23:46 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/hugo_tips/</guid>
+      <guid>https://b1naryd0g.github.io/post/2020-02-23_hugo_tips/</guid>
       <description>&lt;p&gt;この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は私がつまづいた手順です。新しいものを見つけたら順次更新します。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Hugo でブログを作ってみた</title>
-      <link>https://ruitrek.github.io/posts/start-blog-with-hugo/</link>
+      <link>https://b1naryd0g.github.io/post/2020-02-22_start-blog-with-hugo/</link>
       <pubDate>Sat, 22 Feb 2020 22:13:05 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/start-blog-with-hugo/</guid>
+      <guid>https://b1naryd0g.github.io/post/2020-02-22_start-blog-with-hugo/</guid>
       <description>&lt;p&gt;自身のブログを Hugo で作成しました。Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>このブログについて</title>
-      <link>https://ruitrek.github.io/posts/about-this-blog/</link>
+      <link>https://b1naryd0g.github.io/post/2020-02-22_about-this-blog/</link>
       <pubDate>Sat, 22 Feb 2020 22:09:06 +0900</pubDate>
       
-      <guid>https://ruitrek.github.io/posts/about-this-blog/</guid>
+      <guid>https://b1naryd0g.github.io/post/2020-02-22_about-this-blog/</guid>
       <description>こんにちはルイ (@ruitrek_) と申します。
 ブログ名はあの有名 YouTuber のチャンネル名からブログ名を拝借しました。
 これまで何度かブログに挑戦しましたが、「正確なことを書かねば」とか、「かっこよくせねば」とか、あれこれ考えているうちに記事を書くことが面倒になり長続きしませんでした。
@@ -90,10 +86,10 @@ RAID アレイの作成 mdadm をインストールします。
     
     <item>
       <title>About Hugo</title>
-      <link>https://ruitrek.github.io/about/</link>
+      <link>https://b1naryd0g.github.io/about/</link>
       <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://ruitrek.github.io/about/</guid>
+      <guid>https://b1naryd0g.github.io/about/</guid>
       <description>こんにちはルイ (@ruitrek_) と申します。
 ブログ名はあの有名 YouTuber のチャンネル名からブログ名を拝借しました。
 これまで何度かブログに挑戦しましたが、「正確なことを書かねば」とか、「かっこよくせねば」とか、あれこれ考えているうちに記事を書くことが面倒になり長続きしませんでした。

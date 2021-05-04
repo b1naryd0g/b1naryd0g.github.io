@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang='en' >
+  <head>
+  <title>Raspberry pi 4 に 暗号化した raid ボリュームを作成する | Kimagure Tech</title>
+  <meta charset='utf-8'>
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45001119-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-45001119-4');
+</script>
+
+<meta name = 'keywords' content = 'Kimagure Tech'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property = 'og:type' content = 'article' />
+<meta property = 'og:title' content = 'Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する' />
+<meta property = 'og:description' content = '前回 RPI4 に Arch Linux をインストールした post の続きです。 ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。
+今回の構成 ガチャベイという USB 接続の HDD ケースと 2 TB の HDD 6 本を使ってストレージを作ります。こ …'>
+<meta property = 'og:url' content = 'https://b1naryd0g.github.io/post/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/' />
+<meta property = 'og:image' content = 'https://b1naryd0g.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://b1naryd0g.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://b1naryd0g.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://b1naryd0g.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://b1naryd0g.github.io/images/icons/site.webmanifest'>
+<meta name='msapplication-TileColor' content='#da532c'>
+<meta name='theme-color' content='#ffffff'>
+
+  <link rel='canonical' href='https://b1naryd0g.github.io/post/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/'>
+  <link rel = 'stylesheet' href = 'https://b1naryd0g.github.io/css/main.dc7a6bede9934c85c8049f3262ef686be020f78f1425f4bda69d319b7d888661d386b23f4a369d4e5267cdddd6396efd26ca46ae2e2854a420d475d3955f9dfb.css' integrity = 'sha512-3Hpr7emTTIXIBJ8yYu9oa&#43;Ag948UJfS9pp0xm32IhmHThrI/SjadTlJnzd3WOW79JspGri4oVKQg1HXTlV&#43;d&#43;w=='>
+</head>
+
+  <body>
+    <div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://b1naryd0g.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://b1naryd0g.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://b1naryd0g.github.io/tags' class = 'nav_item'>Tag</a>
+    <div class = 'nav-close'></div><div class = 'color_mode'>
+<label for = 'mode'>Toggle Dark Mode</label>
+<input type = 'checkbox' class = 'color_choice' id = 'mode'>
+</div>
+
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://b1naryd0g.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+      
+  <div class = 'wrap mt post'>
+    <div><p class = 'post_date pale'>07. March 2020</p>
+      <h1 class = 'post_title'>Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する</h1>
+      <div class = 'post_body'>
+        <div class = 'post_inner'>
+        
+          <img src = 'https://b1naryd0g.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' alt = 'harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' class = 'post_thumbnail'>
+        
+          <p><a href="https://b1naryd0g.github.io/post/2020-02-29_install_arch_linux_on_raspberrypi_4/">前回</a> RPI4 に Arch Linux をインストールした post の続きです。
+ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。</p>
+<h2 id="今回の構成">今回の構成</h2>
+<p>ガチャベイという USB 接続の HDD ケースと 2 TB の HDD 6 本を使ってストレージを作ります。このストレージは Mac のバックアップなど機微な情報を保存する予定のため HDD を暗号化したいと思います。</p>
+<p>暗号化の目的は HDD を処分するときに何回も上書きしたりする手間から開放されることです。HDD の盗難や押収を想定しているわけではありませんので暗号化キーは root がある Micro SD カードに保存します。もし、そういった事態も警戒される場合は、USB スティックにキーを保存するなどの対策を講じてください。</p>
+<p>なお、暗号化した RAID を実現するためには、「暗号化したディスクでアレイを作る方法」と「RAID ボリュームを暗号化する」方法があります。今回は管理が簡単な後者の方法で環境を作成していきたいと思います。</p>
+<h3 id="mdadm">mdadm</h3>
+<p>Linux のソフトウェア RAID を管理するソフトウェアです。Linux ソフトウェア RAID デバイスは、md (マルチデバイス) ドライバーを介して実装されています。</p>
+<h3 id="dm-crypt">dm-crypt</h3>
+<p>Linux カーネルバージョン 2.6 以降で利用可能なディスク暗号化カーネルモジュールです。<code>cryptsetup</code> コマンドで管理します。今回は標準的なフォーマットである LUKS を利用します。</p>
+<h2 id="raid-アレイの作成">RAID アレイの作成</h2>
+<p>mdadm をインストールします。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacman -S mdadm
+</code></pre></td></tr></table>
+</div>
+</div><p>lsblk で sd[a-f] のディスクが見えていますね。これを RAID アレイにします。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ lsblk
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda           8:0    0  1.8T  0 disk
+sdb           8:16   0  1.8T  0 disk
+sdc           8:32   0  1.8T  0 disk
+sdd           8:48   0  1.8T  0 disk
+sde           8:64   0  1.8T  0 disk
+sdf           8:80   0  1.8T  0 disk
+</code></pre></td></tr></table>
+</div>
+</div><p>RAID アレイにするディスクはパーティショニングすることが強く推奨 (highly recommended) されていますのでパーティションを作成します。</p>
+<ul>
+<li><code>FD00</code> は Linux RAID です</li>
+<li><code>-100M</code> の指定は HDD の最後に少し余裕を作っています<br>
+HDD の入れ替えが必要になった時に、HDD のサイズが違う可能性を吸収するためです。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">for t in /dev/sd{a..f}; do \
+    sgdisk -Z $t
+    sgdisk -n 1::-100M -t 1:fd00 -c 1:$t $t
+</code></pre></td></tr></table>
+</div>
+</div><p>mdadm で RAID10 のアレイを作ります。</p>
+<ul>
+<li>chunk size は<a href="https://louwrentius.com/linux-raid-level-and-chunk-size-the-benchmarks.html">このあたり</a>を参考に 128K にしました。</li>
+<li>f2 は far2 レイアウトとよばれ、レプリカがなるべく離れた位置に配置されます。</li>
+<li>hdd を指定する順番でペアが作成されるようです<br>
+sd[a-c], sd[d-f] は別の HDD ケースに入っているので、これらをそれぞれ (a,d)(b,e)(c,f) のペアになるように指定しました。</li>
+</ul>
+<p>アレイの同期は HDD のサイズや転送速度に応じて、それなりに時間がかかります。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># アレイの作成
+mdadm --create --verbose --level=10 \
+    --metadata=1.2 --chunk=128 \
+    --raid-devices=6 --layout=f2 \
+    /dev/md0 \
+    /dev/sda1 /dev/sdd1 /dev/sdb1 /dev/sde1 /dev/sdc1 /dev/sdf1
+
+# 同期の進捗確認
+cat /proc/mdstat
+Personalities : [linear] [raid0] [raid1] [raid10] [raid6] [raid5] [raid4] [multipath] [faulty] 
+md0 : active raid10 sdf1[5] sdd1[1] sde1[3] sdc1[4] sda1[0] sdb1[2]
+      5859836928 blocks super 1.2 128K chunks 2 far-copies [6/6] [UUUUUU]
+      bitmap: 0/44 pages [0KB], 65536KB chunk
+
+unused devices: &lt;none&gt;
+
+# 詳細の表示 
+mdadm --detail /dev/md0
+/dev/md0:
+           Version : 1.2
+     Creation Time : Fri Feb 28 03:15:58 2020
+        Raid Level : raid10
+        Array Size : 5859836928 (5588.38 GiB 6000.47 GB)
+     Used Dev Size : 1953278976 (1862.79 GiB 2000.16 GB)
+      Raid Devices : 6
+     Total Devices : 6
+       Persistence : Superblock is persistent
+
+     Intent Bitmap : Internal
+
+       Update Time : Fri Feb 28 20:00:11 2020
+             State : clean 
+    Active Devices : 6
+   Working Devices : 6
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : far=2
+        Chunk Size : 128K
+
+Consistency Policy : bitmap
+
+              Name : alarmpi:0
+              UUID : 0b5ed1db:dec8533a:f232bb96:6c13aebc
+            Events : 10208
+
+    Number   Major   Minor   RaidDevice State
+       0       8        1        0      active sync   /dev/sda1
+       1       8       49        1      active sync   /dev/sdd1
+       2       8       17        2      active sync   /dev/sdb1
+       3       8       65        3      active sync   /dev/sde1
+       4       8       33        4      active sync   /dev/sdc1
+       5       8       81        5      active sync   /dev/sdf
+
+</code></pre></td></tr></table>
+</div>
+</div><p>アレイができたらコンフィグレーションファイルにアレイの情報を書いておきます。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="暗号化ファイルシステムの作成">暗号化ファイルシステムの作成</h2>
+<p>cryptsetup のインストール</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacman -S cryptsetup
+</code></pre></td></tr></table>
+</div>
+</div><p>暗号化ファイルシステムの作成</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 鍵の作成
+dd bs=1MiB count=8 if=/dev/urandom of=/etc/luks.key
+# LUKS モードでアレイを暗号化
+cryptsetup luksFormat --key-file /etc/luks.key /dev/md0
+# 作成結果の確認
+cryptsetup luksDump /dev/md0
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="luks-パーティションのロックを解除マップ">LUKS パーティションのロックを解除・マップ</h2>
+<p>暗号化ファイルシステムを暗号化キーで開いてロックを解除します。また、ファイルシステムの情報を crypttab 書いておきましょう。起動時に自動的にロック解除できます。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cryptsetup open --type luks --key-file /etc/luks.key /dev/md0 cryptdata
+echo cryptdata /dev/md0 /etc/luks.key &gt;&gt; /etc/crypttab
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="パーティションのフォーマットとマウント">パーティションのフォーマットとマウント</h2>
+<p>私は XFS を利用することにしました。お好きなフォーマット形式を選択して fstab を書けば完成です。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkfs.xfs -d su=128k -d sw=3 /dev/mapper/cryptdata
+mount /dev/mapper/cryptdata /srv
+echo /dev/mapper/cryptdata /srv xfs defaults 0 2 &gt;&gt; /etc/fstab
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="オプション-ディスク全体の暗号化">(オプション) ディスク全体の暗号化</h2>
+<p>書き込まれるデータは自動的に暗号化されますが、ここまでの手順では既存の HDD のブロックは暗号化されていません。過去に何かしら利用していた HDD の場合は一度全ての領域を暗号化したデータで上書きしておいた方がいいと思います。なお、容量によっては途方もない時間がかかりますのでご注意ください。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">dd if=/dev/zero of=/srv/tmp.img bs=1M status=progress
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="read-more">Read more</h2>
+<p>RAID - ArchWiki:<br>
+<a href="https://wiki.archlinux.org/index.php/RAID">https://wiki.archlinux.org/index.php/RAID</a></p>
+<p>dm-crypt/Device encryption - ArchWiki:<br>
+<a href="https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption">https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption</a></p>
+<p>mdadm(8) - Linux man page:<br>
+<a href="https://linux.die.net/man/8/mdadm">https://linux.die.net/man/8/mdadm</a></p>
+<p>cryptsetup(8) - Linux man page:<br>
+<a href="https://linux.die.net/man/8/cryptsetup">https://linux.die.net/man/8/cryptsetup</a></p>
+
+        </div>
+        <div class ='post_extra mb-2'>
+          <div class = 'copy'></div>
+
+        </div>
+        <div>
+        
+        </div>
+      </div>
+    </div>
+    <a href = 'https://b1naryd0g.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+  </div>
+
+    </main>
+    <footer class = 'footer wrap pale'>
+  <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+</footer>
+
+
+<script src = 'https://b1naryd0g.github.io/js/index.min.07c6fc7e589e618408c3d9d16245a338e7fb253bcc56a52da6b49b03ca0441b10a88b73a2879ebc858a1f8e00747f5aca54ef064ce5652a23f26bcf0ca213ad5.js'></script>
+
+  </body>
+</html>

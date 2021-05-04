@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang='en' >
+  <head>
+  <title>Hugo でブログを作ってみた | Kimagure Tech</title>
+  <meta charset='utf-8'>
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45001119-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-45001119-4');
+</script>
+
+<meta name = 'keywords' content = 'Kimagure Tech'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property = 'og:type' content = 'article' />
+<meta property = 'og:title' content = 'Hugo でブログを作ってみた' />
+<meta property = 'og:description' content = '自身のブログを Hugo で作成しました。Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。'>
+<meta property = 'og:url' content = 'https://ruitrek.github.io/posts/2020-02-22_start-blog-with-hugo/' />
+<meta property = 'og:image' content = 'https://ruitrek.github.io/images/hugo-logo-wide.svg'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://ruitrek.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://ruitrek.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://ruitrek.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://ruitrek.github.io/images/icons/site.webmanifest'>
+<meta name='msapplication-TileColor' content='#da532c'>
+<meta name='theme-color' content='#ffffff'>
+
+  <link rel='canonical' href='https://ruitrek.github.io/posts/2020-02-22_start-blog-with-hugo/'>
+  <link rel = 'stylesheet' href = 'https://ruitrek.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
+</head>
+
+  <body>
+    <div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://ruitrek.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://ruitrek.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://ruitrek.github.io/tags' class = 'nav_item'>Tag</a>
+    <div class = 'nav-close'></div><div class = 'color_mode'>
+<label for = 'mode'>Toggle Dark Mode</label>
+<input type = 'checkbox' class = 'color_choice' id = 'mode'>
+</div>
+
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://ruitrek.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+      
+  <div class = 'wrap mt post'>
+    <div><p class = 'post_date pale'>22. February 2020</p>
+      <h1 class = 'post_title'>Hugo でブログを作ってみた</h1>
+      <div class = 'post_body'>
+        <div class = 'post_inner'>
+        
+          <img src = 'https://ruitrek.github.io/images/hugo-logo-wide.svg' alt = 'hugo-logo-wide.svg' class = 'post_thumbnail'>
+        
+          <p>自身のブログを Hugo で作成しました。Hugo について語るほど知識を持っていないため自分への備忘録的な記事です。</p>
+<h2 id="hugo-について">Hugo について</h2>
+<p>Hugo はオープンソースの静的サイトジェネレーターです。</p>
+<p>一般的にブログエンジンはユーザーのリクエストに応じてデータベースに保存されているコンテンツを返す仕組みになっており、データベースを管理する必要があります。</p>
+<p>静的サイトジェネレーターではあらかじめ静的なページを生成しておいてそれを返します。そのため、Web サーバーさえあればコンテンツを公開することが可能で、データベースを管理する手間やパフォーマンス・チューニングに頭を悩ませる時間が減ります。</p>
+<p>私はこれから Hugo を使い初めることもあり、右も左もよくわかっていないので、公式のチュートリアルを模倣して動かしてみます。</p>
+<blockquote>
+<p>Quick Start | Hugo<br>
+<a href="https://gohugo.io/getting-started/quick-start/">https://gohugo.io/getting-started/quick-start/</a></p>
+</blockquote>
+<h2 id="インストール">インストール</h2>
+<p>Mac のため Home brew でインストールしました。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">brew install hugo
+</code></pre></td></tr></table>
+</div>
+</div><p>バージョン</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo version
+Hugo Static Site Generator v0.64.1/extended darwin/amd64 BuildDate: unknown
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Install Hugo<br>
+<a href="https://gohugo.io/getting-started/installing/">https://gohugo.io/getting-started/installing/</a></p>
+</blockquote>
+<h2 id="サイトの作成">サイトの作成</h2>
+<p>適当なディレクトリで <code>hugo new site</code> コマンドを実行します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo new site hugo
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="テーマの適用">テーマの適用</h2>
+<p><a href="https://themes.gohugo.io/">Hugo Themes</a> にたくさんテーマがあるので好みのものを選びます。かっこいいテーマがいろいろあって悩んだので、今回はチュートリアル通り、ananke を選びました。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd hugo
+git init
+git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
+</code></pre></td></tr></table>
+</div>
+</div><p>テーマの適用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">echo &#39;theme = &#34;ananke&#34;&#39; &gt;&gt; config.toml
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="記事の作成">記事の作成</h2>
+<p><code>hugo new</code>  コマンドで記事を作成できます。 <code>content/&lt;CATEGORY&gt;/&lt;FILE&gt;.&lt;FORMAT&gt;</code>  の形式になるみたいです。このコマンドで作る記事は <code>content</code> ディレクトリに作られるので、下の例でいうと <code>posts</code> が <code>&lt;CATEGORY&gt;</code> になるようです。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo new posts/my-first-post.md
+</code></pre></td></tr></table>
+</div>
+</div><p>記事ファイルの中身はこんな感じ。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># content/posts/my-first-post.md
+---
+title: &#34;My First Post&#34;
+date: 2020-02-22T16:28:05+09:00
+draft: true
+---
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="記事のプレビュー">記事のプレビュー</h2>
+<p>作った記事はビルトイン Web サーバーを起動してローカルでプレビューできます。<code>-D</code> オプションはドラフト (<code>draft: true</code>) の状態の記事を表示するオプションです。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo server -D
+</code></pre></td></tr></table>
+</div>
+</div><p>hugo server を起動したら、ブラウザーで <code>http://localhost:1313/</code>  にアクセスして出来栄えを確認しましょう。</p>
+<h2 id="テーマのカスタマイズ">テーマのカスタマイズ</h2>
+<p><code>config.toml</code>  をいじってサイトの設定を変更します。私は以下の用にしました。タイトルは何も考えてなかったので、あの有名な料理系 YouTuber のチャンネル名からアイディアを拝借しました。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># config.toml
+baseURL = &#34;https://ruitrek.github.io/&#34;
+languageCode = &#34;jp&#34;
+title = &#34;Kimagure Tech&#34;
+theme = &#34;ananke&#34;
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Configure Hugo<br>
+<a href="https://gohugo.io/getting-started/configuration/">https://gohugo.io/getting-started/configuration/</a></p>
+</blockquote>
+<h2 id="記事のビルド">記事のビルド</h2>
+<p><code>hugo</code>  コマンドで記事をビルドします。Hugo のビルドとは静的なコンテンツを生成することです。生成した記事は <code>public</code> ディレクトリに出力されます。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo -D
+Building sites … WARN 2020/02/22 15:53:52 Page.URL is deprecated and will be removed in a future release. Use .Permalink or .RelPermalink. If what you want is the front matter URL value, use .Params.url
+
+                   | EN
+-------------------+-----
+  Pages            | 10
+  Paginator pages  |  0
+  Non-page files   |  0
+  Static files     |  3
+  Processed images |  0
+  Aliases          |  1
+  Sitemaps         |  1
+  Cleaned          |  0
+
+Total in 37 ms
+</code></pre></td></tr></table>
+</div>
+</div><p>おやおや、なにやら警告がでてますね。使い始めたばかりなのにいきなり deprecated な機能を引いてしまったみたいです・・・ <code>Page.URL</code> というのはページごとの変数らしいのですが、なんとなくテーマ側の話な気がするし、そもそも今は解決する知識も能力もないので無視することにしました笑</p>
+<h2 id="記事の公開">記事の公開</h2>
+<p>公式サイトにいろいろなホスティングとデプロイの方法が書いてあるので、それを参考にします。私は GitHub Pages を使ってみたかったので、Host on GitHub を選びました。</p>
+<h3 id="github-pages">GitHub Pages</h3>
+<p>Github Pages には 2 種類の URL タイプがあるそうです。今回は前者にしました。</p>
+<blockquote>
+<p>Hosting &amp; Deployment<br>
+<a href="https://gohugo.io/hosting-and-deployment/">https://gohugo.io/hosting-and-deployment/</a><br>
+Host on GitHub<br>
+<a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">https://gohugo.io/hosting-and-deployment/hosting-on-github/</a></p>
+</blockquote>
+<ul>
+<li>User/Organization Pages:<br>
+e.g.) <code>https://&lt;USERNAME|ORGANIZATION&gt;.github.io/</code></li>
+<li>Project Pages:<br>
+e.g.) <code>https://&lt;USERNAME|ORGANIZATION&gt;.github.io/&lt;PROJECT&gt;/</code></li>
+</ul>
+<h3 id="リポジトリ">リポジトリ</h3>
+<p>GitHub には 2 種類のリポジトリを作ります。</p>
+<ul>
+<li>ブログ管理用: リポジトリ名はなんでもいいです (例: blog)。public ディレクトリ以外プロジェクト全体を管理します。</li>
+<li>公開コンテンツ用: リポジトリ名を <strong><code>&lt;USERNAME&gt;.github.io</code></strong> にします。<code>Initialize this repository with a README</code> にチェックを入れて作ります。</li>
+</ul>
+<p>なお、GitHub 非課金ユーザーは、公開コンテンツ用のリポジトリを Public にする必要があるみたいです。GitHub のブログ管理用のリポジトリは Private でも大丈夫です。私は Private で作ってしまったのでしばらく悩みました。</p>
+<blockquote>
+<p>About GitHub Pages<br>
+<a href="https://help.github.com/en/github/working-with-github-pages/about-github-pages">https://help.github.com/en/github/working-with-github-pages/about-github-pages</a></p>
+<blockquote>
+<p>GitHub Pages is available in public repositories with GitHub Free, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server.</p>
+</blockquote>
+</blockquote>
+<h2 id="記事の公開-1">記事の公開</h2>
+<p>public ディレクトリは public リポジトリをサブモジュールとして管理するので、既存のディレクトリを削除してから Hugo プロジェクトをコミットします。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rm -rf public
+git add .
+git commit -m &#39;Create a blog project on Hugo.&#39;
+git remote add origin git@github.com:ruitrek/blog.git
+git push -u origin master
+git submodule -b master add git@github.com:ruitrek/ruitrek.github.io.git public
+</code></pre></td></tr></table>
+</div>
+</div><p>記事の <code>draft</code> を <code>false</code> に変更します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git diff content/posts/my-first-post.md
+diff --git a/content/posts/my-first-post.md b/content/posts/my-first-post.md
+index 68451fb..5930227 100644
+--- a/content/posts/my-first-post.md
++++ b/content/posts/my-first-post.md
+@@ -1,6 +1,6 @@
+ ---
+ title: &#34;My First Post&#34;
+ date: 2020-02-22T18:47:43+09:00
+-draft: true
++draft: false
+ ---
+</code></pre></td></tr></table>
+</div>
+</div><p>プロジェクトをビルドして</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo
+</code></pre></td></tr></table>
+</div>
+</div><p>public リポジトリにプッシュします。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd public
+git add .
+git commit -m &#34;rebuilding site $(LANG=C date)&#34;
+git push origin master
+</code></pre></td></tr></table>
+</div>
+</div><p>しばらく反映を待つと、https://<!-- raw HTML omitted -->.github.io で記事が閲覧できます。20 分くらい掛かることもあるみたいなので、コーヒーでも飲んでゆっくり待ちましょう。1 時間待っても表示されなかったら、何かがおかしいです。</p>
+<blockquote>
+<p>Creating a GitHub Pages site<br>
+<a href="https://help.github.com/en/github/working-with-github-pages/creating-a-github-pages-site">https://help.github.com/en/github/working-with-github-pages/creating-a-github-pages-site</a></p>
+<blockquote>
+<p>Note: It can take up to 20 minutes for changes to your site to publish after you push the changes to GitHub. If your don&rsquo;t see your changes reflected in your browser after an hour, see &ldquo;About Jekyll build errors for GitHub Pages sites.&rdquo;</p>
+</blockquote>
+</blockquote>
+        </div>
+        <div class ='post_extra mb-2'>
+          <div class = 'copy'></div>
+
+        </div>
+        <div>
+        
+        </div>
+      </div>
+    </div>
+    <a href = 'https://ruitrek.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+  </div>
+
+    </main>
+    <footer class = 'footer wrap pale'>
+  <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+</footer>
+
+
+<script src = 'https://ruitrek.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
+
+  </body>
+</html>

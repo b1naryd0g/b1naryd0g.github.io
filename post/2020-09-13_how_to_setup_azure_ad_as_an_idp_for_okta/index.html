@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang='en' >
+  <head>
+  <title>Azure a d を okta の id p として設定する | Kimagure Tech</title>
+  <meta charset='utf-8'>
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45001119-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-45001119-4');
+</script>
+
+<meta name = 'keywords' content = 'Kimagure Tech'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property = 'og:type' content = 'article' />
+<meta property = 'og:title' content = 'Azure AD を Okta の IdP として設定する' />
+<meta property = 'og:description' content = 'Introduction 「質が低くてもいいので更新をがんばる」といいながら、6 ヶ月ぶりの更新になってしまいました。Okta の IdP として AAD を構成してみました。Okta はさわり始めたばかりであまり自信がありません。内容に不備がある場合は、@ruitrek までお知らせいただけますと …'>
+<meta property = 'og:url' content = 'https://ruitrek.github.io/post/2020-09-13_how_to_setup_azure_ad_as_an_idp_for_okta/' />
+<meta property = 'og:image' content = 'https://ruitrek.github.io/images/Okta_Logo_BrightBlue_Medium.png'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://ruitrek.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://ruitrek.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://ruitrek.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://ruitrek.github.io/images/icons/site.webmanifest'>
+<meta name='msapplication-TileColor' content='#da532c'>
+<meta name='theme-color' content='#ffffff'>
+
+  <link rel='canonical' href='https://ruitrek.github.io/post/2020-09-13_how_to_setup_azure_ad_as_an_idp_for_okta/'>
+  <link rel = 'stylesheet' href = 'https://ruitrek.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
+</head>
+
+  <body>
+    <div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://ruitrek.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://ruitrek.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://ruitrek.github.io/tags' class = 'nav_item'>Tag</a>
+    <div class = 'nav-close'></div><div class = 'color_mode'>
+<label for = 'mode'>Toggle Dark Mode</label>
+<input type = 'checkbox' class = 'color_choice' id = 'mode'>
+</div>
+
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://ruitrek.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+      
+  <div class = 'wrap mt post'>
+    <div><p class = 'post_date pale'>13. September 2020</p>
+      <h1 class = 'post_title'>Azure AD を Okta の IdP として設定する</h1>
+      <div class = 'post_body'>
+        <div class = 'post_inner'>
+        
+          <img src = 'https://ruitrek.github.io/images/Okta_Logo_BrightBlue_Medium.png' alt = 'Okta_Logo_BrightBlue_Medium.png' class = 'post_thumbnail'>
+        
+          <h2 id="introduction">Introduction</h2>
+<p>「質が低くてもいいので更新をがんばる」といいながら、6 ヶ月ぶりの更新になってしまいました。Okta の IdP として AAD を構成してみました。Okta はさわり始めたばかりであまり自信がありません。内容に不備がある場合は、@ruitrek までお知らせいただけますと幸いです。</p>
+<h2 id="toc">TOC</h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#toc">TOC</a></li>
+<li><a href="#reference-documents">Reference Documents</a></li>
+<li><a href="#azure-ad-%E3%81%AE%E3%82%A2%E3%83%97%E3%83%AA%E4%BD%9C%E6%88%90">Azure AD のアプリ作成</a></li>
+<li><a href="#okta-%E3%81%AB-idp-%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B">Okta に IdP を追加する</a></li>
+</ul>
+<h2 id="reference-documents">Reference Documents</h2>
+<p><a href="https://developer.okta.com/docs/guides/add-an-external-idp/azure/before-you-begin/">https://developer.okta.com/docs/guides/add-an-external-idp/azure/before-you-begin/</a>
+<a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app">https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app</a></p>
+<h2 id="azure-ad-のアプリ作成">Azure AD のアプリ作成</h2>
+<p>Okta のドキュメントのタブには <strong>Azure AD</strong> と <strong>Microsoft</strong> と <strong>OpenID Connect IdP</strong> の表記があって紛らわしいので注意です。後述の手順で 「Azure AD の場合は OpenID Connect IdP をセットアップしろよ」とか言われるので迷いそうになるのですが、とにかく Azure AD のタブだけを見て進めればいいです。</p>
+<ol>
+<li>[Manage] - [App registrations] - [New registration] で WebAPI を登録します。Redirect URI` には https://&lt;Okta サブドメイン&gt;.okta.com/oauth2/v1/authorize/callback を入力します
+
+<picture class = 'nav_logo'>
+  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://ruitrek.github.io/images/Register-an-application-Microsoft-Azure.jpg' alt = ''>
+</picture>
+</li>
+<li>[Manage] - [Certificate &amp; secrets] から [Client secrets] - [New client secret] を選んでシークレットを作成します。作成すると Value にシークレットが表示されます。画面遷移するとマスクされてしまいますので忘れずに控えます
+
+<picture class = 'nav_logo'>
+  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://ruitrek.github.io/images/Okta-Microsoft-Azure1.jpg' alt = ''>
+</picture>
+
+
+<picture class = 'nav_logo'>
+  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://ruitrek.github.io/images/Okta-Microsoft-Azure2.jpg' alt = ''>
+</picture>
+</li>
+<li>[Overview] - [Endpoints] を選んで、<strong>Application (client) ID</strong> と <strong>OpenID Connect metadata document</strong> を控えます
+
+<picture class = 'nav_logo'>
+  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://ruitrek.github.io/images/Endpoints-Microsoft-Azure1jpg' alt = ''>
+</picture>
+</li>
+<li>先程控えた OpenID Connect metadata document の URL にブラウザアクセスして、次の 4 つのエンドポイントを控えます
+<ul>
+<li>Issuer</li>
+<li>Authorization</li>
+<li>Token</li>
+<li>JWKS<br>
+※ 以下のようにしても必要な情報が取り出せます</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -s https://&lt;OpenID Connect metadata document URL&gt; |\
+jq -r &#39;&#34;issuer: &#34; + .issuer,
+         &#34;authorization: &#34;+.authorization_endpoint,
+         &#34;token: &#34;+ .token_endpoint,
+         &#34;jkws: &#34;+.jwks_uri
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="okta-に-idp-を追加する">Okta に IdP を追加する</h2>
+<ol>
+<li>[Security] - [Identity Providers] を選んで、<strong>Add OpenID Connect IdP</strong> を選びます。 Add Microsoft ではありません <strong>Add OpenID Connect IdP</strong> です (3回目)
+
+<picture class = 'nav_logo'>
+  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://ruitrek.github.io/images/ruitrek-Identity-Providers1.jpg' alt = ''>
+</picture>
+</li>
+<li>先程控えた値を入力します
+
+<picture class = 'nav_logo'>
+  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://ruitrek.github.io/images/ruitrek-Identity-Providers2.jpg' alt = ''>
+</picture>
+</li>
+<li>なんでもかんでも AAD にルーティングするルールを作成してアクティベートします
+
+<picture class = 'nav_logo'>
+  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://ruitrek.github.io/images/ruitrek-Identity-Providers3.jpg' alt = ''>
+</picture>
+</li>
+</ol>
+
+        </div>
+        <div class ='post_extra mb-2'>
+          <div class = 'copy'></div>
+
+        </div>
+        <div>
+        
+        </div>
+      </div>
+    </div>
+    <a href = 'https://ruitrek.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+  </div>
+
+    </main>
+    <footer class = 'footer wrap pale'>
+  <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+</footer>
+
+
+<script src = 'https://ruitrek.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
+
+  </body>
+</html>

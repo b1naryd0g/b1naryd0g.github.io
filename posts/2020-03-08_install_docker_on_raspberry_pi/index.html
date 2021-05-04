@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang='en' >
+  <head>
+  <title>Raspberry pi に docker をインストールする | Kimagure Tech</title>
+  <meta charset='utf-8'>
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45001119-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-45001119-4');
+</script>
+
+<meta name = 'keywords' content = 'Kimagure Tech'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property = 'og:type' content = 'article' />
+<meta property = 'og:title' content = 'Raspberry Pi に Docker をインストールする' />
+<meta property = 'og:description' content = '前回の続きです。Raspberry Pi に docker をインストールして、前回作った RAID ボリュームにイメージを配置します。
+パッケージのインストールと起動 Docker をインストールします。手順の中では sudo を使用しなくていいように docker グループにユーザを追加していま …'>
+<meta property = 'og:url' content = 'https://ruitrek.github.io/posts/2020-03-08_install_docker_on_raspberry_pi/' />
+<meta property = 'og:image' content = 'https://ruitrek.github.io/images/vertical-logo-monochromatic.png'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://ruitrek.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://ruitrek.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://ruitrek.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://ruitrek.github.io/images/icons/site.webmanifest'>
+<meta name='msapplication-TileColor' content='#da532c'>
+<meta name='theme-color' content='#ffffff'>
+
+  <link rel='canonical' href='https://ruitrek.github.io/posts/2020-03-08_install_docker_on_raspberry_pi/'>
+  <link rel = 'stylesheet' href = 'https://ruitrek.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
+</head>
+
+  <body>
+    <div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://ruitrek.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://ruitrek.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://ruitrek.github.io/tags' class = 'nav_item'>Tag</a>
+    <div class = 'nav-close'></div><div class = 'color_mode'>
+<label for = 'mode'>Toggle Dark Mode</label>
+<input type = 'checkbox' class = 'color_choice' id = 'mode'>
+</div>
+
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://ruitrek.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+      
+  <div class = 'wrap mt post'>
+    <div><p class = 'post_date pale'>08. March 2020</p>
+      <h1 class = 'post_title'>Raspberry Pi に Docker をインストールする</h1>
+      <div class = 'post_body'>
+        <div class = 'post_inner'>
+        
+          <img src = 'https://ruitrek.github.io/images/vertical-logo-monochromatic.png' alt = 'vertical-logo-monochromatic.png' class = 'post_thumbnail'>
+        
+          <p><a href="https://ruitrek.github.io/posts/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/">前回</a>の続きです。Raspberry Pi に docker をインストールして、前回作った RAID ボリュームにイメージを配置します。</p>
+<h2 id="パッケージのインストールと起動">パッケージのインストールと起動</h2>
+<p>Docker をインストールします。手順の中では sudo を使用しなくていいように docker グループにユーザを追加していますが、Arch の wiki に書いてある通り docker グループにユーザをすることは root になることと同意です。ご注意ください。</p>
+<blockquote>
+<p>Warning: Anyone added to the docker group is root equivalent. More information here and here.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo pacman -S docker
+sudo systemctl enable docker
+sudo systemctl start docker
+# docker グループにユーザを追加
+sudo gpasswd -a ruitrek docker
+docker version
+Client:
+ Version:           19.03.7-ce
+ API version:       1.40
+ Go version:        go1.14
+ Git commit:        7141c199a2
+ Built:             Fri Mar  6 13:23:48 2020
+ OS/Arch:           linux/arm
+ Experimental:      false
+
+Server:
+ Engine:
+  Version:          19.03.7-ce
+  API version:      1.40 (minimum version 1.12)
+  Go version:       go1.14
+  Git commit:       7141c199a2
+  Built:            Fri Mar  6 13:23:05 2020
+  OS/Arch:          linux/arm
+  Experimental:     false
+ containerd:
+  Version:          v1.3.3.m
+  GitCommit:        d76c121f76a5fc8a462dc64594aea72fe18e1178.m
+ runc:
+  Version:          1.0.0-rc10
+  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd                                                                                                                                                                          &#34;note.local&#34; 01:53 08-Mar-20
+ docker-init:
+  Version:          0.18.0
+  GitCommit:        fec3683
+</code></pre></td></tr></table>
+</div>
+</div><p>イメージの置き場所を変えるために Drop-in snippet を作成します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo systemctl stop docker
+sudo systemctl edit docker.service
+</code></pre></td></tr></table>
+</div>
+</div><p>以下の内容を追記して保存します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -g /srv/docker -H fd://
+</code></pre></td></tr></table>
+</div>
+</div><p>daemon-reload して docker を起動します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ファイルの移動はオプションです。
+sudo mv /etc/systemd/system/docker.service.d/override.conf /etc/systemd/system/docker.service.d/docker-storage.conf
+sudo systemctl daemon-reload
+sudo systemctl start docker
+# 正しく設定されたか確認
+docker info | grep &#34;Docker Root Dir&#34;
+ Docker Root Dir: /srv/docker
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="hello-world">Hello world</h2>
+<p>ちゃんと動作してますね。いい感じです。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run hello-world 
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &#34;hello-world&#34; image from the Docker Hub.
+    (arm32v7)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="今後について">今後について</h2>
+<p>Archlinux のオフィシャルイメージには ARM ビルドがありません。どうしようかな・・
+とりあえずは ubuntu とか alpine とかのイメージを使います。</p>
+<h2 id="read-more">Read more</h2>
+<p>Docker - ArchWiki:<br>
+<a href="https://wiki.archlinux.org/index.php/Docker">https://wiki.archlinux.org/index.php/Docker</a></p>
+<p>systemd - ArchWiki:<br>
+<a href="https://wiki.archlinux.org/index.php/Systemd#Editing_provided_units">https://wiki.archlinux.org/index.php/Systemd#Editing_provided_units</a></p>
+
+        </div>
+        <div class ='post_extra mb-2'>
+          <div class = 'copy'></div>
+
+        </div>
+        <div>
+        
+        </div>
+      </div>
+    </div>
+    <a href = 'https://ruitrek.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+  </div>
+
+    </main>
+    <footer class = 'footer wrap pale'>
+  <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+</footer>
+
+
+<script src = 'https://ruitrek.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
+
+  </body>
+</html>

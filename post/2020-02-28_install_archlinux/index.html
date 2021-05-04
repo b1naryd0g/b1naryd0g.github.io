@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang='en' >
+  <head>
+  <title>Arch linux をインストールして遊ぶ | Kimagure Tech</title>
+  <meta charset='utf-8'>
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45001119-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-45001119-4');
+</script>
+
+<meta name = 'keywords' content = 'Kimagure Tech'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property = 'og:type' content = 'article' />
+<meta property = 'og:title' content = 'Arch Linux をインストールして遊ぶ' />
+<meta property = 'og:description' content = '家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。'>
+<meta property = 'og:url' content = 'https://b1naryd0g.github.io/post/2020-02-28_install_archlinux/' />
+<meta property = 'og:image' content = 'https://b1naryd0g.github.io/images/archlinux-logo-dark-scalable.svg'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://b1naryd0g.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://b1naryd0g.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://b1naryd0g.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://b1naryd0g.github.io/images/icons/site.webmanifest'>
+<meta name='msapplication-TileColor' content='#da532c'>
+<meta name='theme-color' content='#ffffff'>
+
+  <link rel='canonical' href='https://b1naryd0g.github.io/post/2020-02-28_install_archlinux/'>
+  <link rel = 'stylesheet' href = 'https://b1naryd0g.github.io/css/main.dc7a6bede9934c85c8049f3262ef686be020f78f1425f4bda69d319b7d888661d386b23f4a369d4e5267cdddd6396efd26ca46ae2e2854a420d475d3955f9dfb.css' integrity = 'sha512-3Hpr7emTTIXIBJ8yYu9oa&#43;Ag948UJfS9pp0xm32IhmHThrI/SjadTlJnzd3WOW79JspGri4oVKQg1HXTlV&#43;d&#43;w=='>
+</head>
+
+  <body>
+    <div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://b1naryd0g.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://b1naryd0g.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://b1naryd0g.github.io/tags' class = 'nav_item'>Tag</a>
+    <div class = 'nav-close'></div><div class = 'color_mode'>
+<label for = 'mode'>Toggle Dark Mode</label>
+<input type = 'checkbox' class = 'color_choice' id = 'mode'>
+</div>
+
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://b1naryd0g.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+      
+  <div class = 'wrap mt post'>
+    <div><p class = 'post_date pale'>28. February 2020</p>
+      <h1 class = 'post_title'>Arch Linux をインストールして遊ぶ</h1>
+      <div class = 'post_body'>
+        <div class = 'post_inner'>
+        
+          <img src = 'https://b1naryd0g.github.io/images/archlinux-logo-dark-scalable.svg' alt = 'archlinux-logo-dark-scalable.svg' class = 'post_thumbnail'>
+        
+          <p>家で遊びたいことが増えてきたので、クラウド全盛の時代に逆行して古い PC に Linux を入れて遊んでみることにしました。 Arch Linux を入れて遊んでいたのは数年前の話なので、すっかり忘れてしまった部分も多いのですが、それを思い出すのも楽しみの一つかなと思っています。</p>
+<p><strong>TOC</strong></p>
+<ul>
+<li><a href="#%e6%ba%96%e5%82%99">準備</a></li>
+<li><a href="#%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%81%ae%e6%8e%a5%e7%b6%9a%e3%81%a8-sshd-%e3%81%ae%e8%b5%b7%e5%8b%95">ネットワークの接続と sshd の起動</a></li>
+<li><a href="#%e3%83%91%e3%83%bc%e3%83%86%e3%82%a3%e3%82%b7%e3%83%a7%e3%83%b3%e3%81%ae%e4%bd%9c%e6%88%90%e3%81%a8%e3%83%95%e3%82%a9%e3%83%bc%e3%83%9e%e3%83%83%e3%83%88">パーティションの作成とフォーマット</a></li>
+<li><a href="#%e3%83%9f%e3%83%a9%e3%83%bc%e3%82%b5%e3%83%bc%e3%83%90%e3%81%ae%e9%81%b8%e6%8a%9e">ミラーサーバの選択</a></li>
+<li><a href="#%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab">システムのインストール</a></li>
+<li><a href="#root-%e3%81%ae%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e8%a8%ad%e5%ae%9a">root のパスワード設定</a></li>
+<li><a href="#initramfs-%e3%81%ae%e4%bd%9c%e6%88%90">initramfs の作成</a></li>
+<li><a href="#grub-%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab">grub のインストール</a></li>
+<li><a href="#os-%e3%81%ae%e3%82%b7%e3%83%a3%e3%83%83%e3%83%88%e3%83%80%e3%82%a6%e3%83%b3%e3%81%a8%e8%b5%b7%e5%8b%95">OS のシャットダウンと起動</a></li>
+<li><a href="#%e5%bf%85%e9%a0%88%e3%81%a7%e3%81%af%e3%81%aa%e3%81%84%e3%81%91%e3%81%a9%e3%82%84%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%a8%e4%be%bf%e5%88%a9%e3%81%aa%e8%a8%ad%e5%ae%9a%e3%81%9f%e3%81%a1">必須ではないけどやっておくと便利な設定たち</a>
+<ul>
+<li><a href="#%e3%81%84%e3%81%9a%e3%82%8c%e4%bd%bf%e3%81%84%e3%81%9d%e3%81%86%e3%81%aa%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%81%9f%e3%81%a1%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab">いずれ使いそうなパッケージたちのインストール</a></li>
+<li><a href="#%e7%ae%a1%e7%90%86%e8%80%85%e3%83%a6%e3%83%bc%e3%82%b6%e3%81%ae%e4%bd%9c%e6%88%90">管理者ユーザの作成</a></li>
+<li><a href="#%e3%82%bf%e3%82%a4%e3%83%a0%e3%82%be%e3%83%bc%e3%83%b3%e3%81%a8%e3%83%ad%e3%83%bc%e3%82%ab%e3%83%a9%e3%82%a4%e3%82%bc%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3">タイムゾーンとローカライゼーション</a></li>
+<li><a href="#%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af">ネットワーク</a></li>
+<li><a href="#%e3%83%95%e3%82%a1%e3%82%a4%e3%82%a2%e3%82%a6%e3%82%a9%e3%83%bc%e3%83%ab">ファイアウォール</a></li>
+<li><a href="#%e3%83%9f%e3%83%a9%e3%83%bc%e3%81%ae%e9%81%b8%e6%8a%9e">ミラーの選択</a></li>
+<li><a href="#lvm">lvm</a></li>
+<li><a href="#ntpd">ntpd</a></li>
+<li><a href="#sshd">sshd</a></li>
+<li><a href="#arch-user-repository-aur">Arch User Repository (AUR)</a></li>
+<li><a href="#rsyslog">rsyslog</a></li>
+<li><a href="#bash-tab-%e8%a3%9c%e5%ae%8c">Bash Tab 補完</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="準備">準備</h2>
+<p>インストール用の USB スティックを作成します。iso をダウンロードして dd するのが簡単です。</p>
+<blockquote>
+<p>USB flash installation media:<br>
+<a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media">https://wiki.archlinux.org/index.php/USB_flash_installation_media</a></p>
+</blockquote>
+<h2 id="ネットワークの接続と-sshd-の起動">ネットワークの接続と sshd の起動</h2>
+<p>Arch に優しいインストーラーはありません。 私はインストール中にググりたいしコピペもしたい軟弱者なので、何よりも先に IP アドレスを割り当てて ssh で接続します。</p>
+<p>dhcpd はあらかじめ有効になっているので、dhcp が有効なネットワークでは固定 IP アドレスを設定しなくても大丈夫です。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># IP アドレスとルーティングの設定
+ip address add 192.0.2.0/24 dev eth0
+ip link set eth0 up
+ip route add default via 192.0.2.1
+echo &#39;nameserver 192.0.2.1&#39; &gt; /etc/resolve.conf
+
+# root のパスワードの設定 (SSH 用)
+passwd
+
+# sshd の起動
+sytemctl start sshd.service
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="パーティションの作成とフォーマット">パーティションの作成とフォーマット</h2>
+<p>BIOS か UEFI か、私は特にこだわりはないのです。今回は UEFI が使えるマシンだったので UEFI で作ることにします。
+ファイルシステムは一般的な感じで作ります。ZFS とか btrfs で遊ぶのもいいですが、今回は手間をかけずに動いてほしいので一般的なの環境を作ります。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># パーティショニング
+sgdisk -Z /dev/sda
+sgdisk -n 1::+512M -t 1:ef00 -c 1:efi /dev/sda
+sgdisk -n 2:: -t 2:8e00 -c 2:vg_local /dev/sda
+sgdisk -p /dev/sda
+
+# LVM
+pvcreate /dev/sda2
+vgcreate vg_local /dev/sda2  
+lvcreate --size 512M --name lv_boot /dev/vg_local
+lvcreate --size 1G --name lv_swap /dev/vg_local
+lvcreate --size 16G --name lv_root /dev/vg_local
+
+# ファイルシステムの作成
+mkfs.vfat -n EFI -F32 /dev/sda1
+mkfs.ext4 -L BOOT /dev/vg_local/lv_boot
+mkfs.xfs -L ROOT /dev/vg_local/lv_root
+mkswap -L SWAP /dev/vg_local/lv_swap
+
+# マウント
+mount -o defaults,discard LABEL=ROOT /mnt
+mkdir /mnt/boot
+mount -o defaults LABEL=BOOT /mnt/boot
+mkdir /mnt/boot/efi
+mount -o defaults LABEL=EFI /mnt/boot/efi
+swapon -L SWAP
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Unified Extensible Firmware Interface:<br>
+<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface">https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface</a><br>
+LVM (Linux):<br>
+<a href="https://wiki.archlinux.org/index.php/LVM">https://wiki.archlinux.org/index.php/LVM</a></p>
+</blockquote>
+<h2 id="ミラーサーバの選択">ミラーサーバの選択</h2>
+<p>デフォルトでは各国のサーバが有効になっているので日本の距離が近いサーバを選びたいです。mirrorlist の上から順番に使われるので、以下の行をファイルの先頭に持ってきます。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># /etc/pacman.d/mirrorlist
+Server = http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/$repo/os/$arch
+</code></pre></td></tr></table>
+</div>
+</div><p>なお、万が一 mirrorlist を消してしまった時は、<a href="https://www.archlinux.org/mirrorlist/all/">このサイト</a> から元のリストを入手できます。</p>
+<blockquote>
+<p>Mirrors:<br>
+<a href="https://wiki.archlinux.org/index.php/Mirrors">https://wiki.archlinux.org/index.php/Mirrors</a></p>
+</blockquote>
+<h2 id="システムのインストール">システムのインストール</h2>
+<p>基本的なパッケージのインストールなど Arch インストールお決まりの作業。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacstrap /mnt base linux linux-firmware
+# fstab の作成
+genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+# chroot
+arch-chroot /mnt
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Installation guide:
+<a href="https://wiki.archlinux.org/index.php/Installation_guide#Install_essential_packages">https://wiki.archlinux.org/index.php/Installation_guide#Install_essential_packages</a></p>
+</blockquote>
+<h2 id="root-のパスワード設定">root のパスワード設定</h2>
+<p>私、この作業をよくやり忘れます・・・。 リブート後に root でログインできずに USB スティックで起動し直す羽目になるので地味に面倒です。忘れずにやりましょう。</p>
+<p>また、次の initramfs の設定前に <a href="#%e5%bf%85%e9%a0%88%e3%81%a7%e3%81%af%e3%81%aa%e3%81%84%e3%81%91%e3%81%a9%e3%82%84%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%a8%e4%be%bf%e5%88%a9%e3%81%aa%e8%a8%ad%e5%ae%9a%e3%81%9f%e3%81%a1">必須ではないけどやっておくと便利な設定たち</a> の中から気分で選んで設定しています。最低限ネットワークは設定した方がいいかなと思います。</p>
+<h2 id="initramfs-の作成">initramfs の作成</h2>
+<p>lvm2 を hooks に追加します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">HOOKS=(... lvm2 ...)
+</code></pre></td></tr></table>
+</div>
+</div><p>initramfs を作成します</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkinitcpio -p linux
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>mkinitcpio:<br>
+<a href="https://wiki.archlinux.org/index.php/Mkinitcpio">https://wiki.archlinux.org/index.php/Mkinitcpio</a><br>
+Install Arch Linux on LVM:
+<a href="https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_LVM#Adding_mkinitcpio_hooks">https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_LVM#Adding_mkinitcpio_hooks</a></p>
+</blockquote>
+<h2 id="grub-のインストール">grub のインストール</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># パッケージのインストール
+pacman -S grub efibootmgr
+# grub のインストール
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+# OR
+# grub-install --target=x86_64-efi --efi-directory=/boot/efi --removable
+</code></pre></td></tr></table>
+</div>
+</div><p>UEFI 環境によっては指定の場所 <code>/EFI/boot/bootx64.efi</code> に置かないと起動できないものがあり、<code>--removable</code> をつけるとそこにインストールしてくれます。手動でコピーしてもいいのですが、ブートエントリが 1 つであればこのオプションが楽です。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># LVM 用のモジュールを追加
+# /etc/default/grub
+GRUB_PRELOAD_MODULES=&#34;... lvm&#34;
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># grub 設定の作成
+grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>GRUB:<br>
+<a href="https://wiki.archlinux.org/index.php/GRUB">https://wiki.archlinux.org/index.php/GRUB</a></p>
+</blockquote>
+<h2 id="os-のシャットダウンと起動">OS のシャットダウンと起動</h2>
+<p>緊張の瞬間ですね。シャットダウン後に USB スティックを抜いて起動します。次に起動した時に無事にローカルディスクから起動してくれれば成功です。もし起動しなかった時は USB スティックから起動して必要な箇所を修正します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">exit # or Ctrl+D で chroot を終了して
+shutdown -h now
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="必須ではないけどやっておくと便利な設定たち">必須ではないけどやっておくと便利な設定たち</h2>
+<h3 id="いずれ使いそうなパッケージたちのインストール">いずれ使いそうなパッケージたちのインストール</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacman -S xfsprogs dosfstools usbutils hdparm lvm2 vim git man tmux gptfdisk dstat
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="管理者ユーザの作成">管理者ユーザの作成</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacman -S sudo
+useradd -m -G wheel ruitrek
+passwd ruitrek
+cp /etc/sudoers{,.backup}
+sed -i &#39;s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/&#39; /etc/sudoers
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Users and groups:<br>
+<a href="https://wiki.archlinux.org/index.php/Users_and_groups">https://wiki.archlinux.org/index.php/Users_and_groups</a></p>
+</blockquote>
+<h3 id="タイムゾーンとローカライゼーション">タイムゾーンとローカライゼーション</h3>
+<p>サーバとして使うので最低限の設定ですね。デスクトップとして利用される場合は <code>ja_JP.UTF-8 UTF-8</code> などのロケールを有効にするといいと思います。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+hwclock --systohc --utc
+sed -i &#39;s/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/&#39; /etc/locale.gen
+locale-gen
+echo LANG=en_US.UTF-8 &gt; /etc/locale.conf
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Locale:<br>
+<a href="https://wiki.archlinux.org/index.php/Locale">https://wiki.archlinux.org/index.php/Locale</a></p>
+</blockquote>
+<h3 id="ネットワーク">ネットワーク</h3>
+<p>基本的なネットワーク周りを設定していきます。systemd-networkd はシンプルで使いやすいので気に入っています。</p>
+<p>hostname の設定</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">echo arch &gt; /etc/hostname
+cat &lt;&lt; EOF &gt;&gt; /etc/hosts
+127.0.0.1   localhost localhost.localdomain arch
+::1         localhost localhost.localdomain arch
+EOF
+</code></pre></td></tr></table>
+</div>
+</div><p>nic 名の変更。MAC アドレスか DEVPATH かどちかを指定して固定します。</p>
+<ul>
+<li>MAC アドレスは <code>ip link show &lt;dev&gt;</code>  で調べられます</li>
+<li>DEVPATH は <code>file /sys/class/net/*</code>  で調べられます</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># /etc/udev/rules.d/10-network.rules
+SUBSYSTEM==&#34;net&#34;, ACTION==&#34;add&#34;, ATTR{address}==&#34;aa:bb:cc:dd:ee:ff&#34;, NAME=&#34;eth0&#34;
+# OR
+SUBSYSTEM==&#34;net&#34;, DEVPATH==&#34;/devices/platform/wemac.*&#34;, NAME=&#34;eth0&#34;
+
+# udevadm コマンドでルールが適用されるか調べることができます
+#  e.g.) 元の nic が eno1 の場合
+#  # udevadm test /sys/class/net/eno1/ 2&gt;/dev/null | grep SYSTEMD_ALIAS0
+#  SYSTEMD_ALIAS=/sys/subsystem/net/devices/eth0
+</code></pre></td></tr></table>
+</div>
+</div><p>systemd-networkd 設定ファイルの作成</p>
+<ul>
+<li>DHCP の場合</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cat &lt;&lt; EOF &gt; /etc/systemd/network/20-wired.network
+[Match]
+Name=eth0
+
+[Network]
+DHCP=yes
+EOF
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Static の場合</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cat &lt;&lt; EOF &gt; /etc/systemd/network/20-wired.network
+[Match]
+Name=eth0
+
+[Link]
+# MTUBytes=9000
+
+[Network]
+Address=192.0.2.2/24
+Gateway=192.0.2.1
+DNS=192.2.0.1
+# DNS=1.1.1.1
+# DNS=1.0.0.1
+EOF
+</code></pre></td></tr></table>
+</div>
+</div><p>systemd-networkd 自動起動の設定</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable systemd-networkd.service
+systemctl enable systemd-resolved.service
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Network configuration:<br>
+<a href="https://wiki.archlinux.org/index.php/Network_configuration">https://wiki.archlinux.org/index.php/Network_configuration</a><br>
+systemd-networkd:<br>
+<a href="https://wiki.archlinux.org/index.php/Systemd-networkd">https://wiki.archlinux.org/index.php/Systemd-networkd</a></p>
+</blockquote>
+<h3 id="ファイアウォール">ファイアウォール</h3>
+<p><code>iptables</code> より使いやすくなった（らしい）<code>ntfables</code> を使ってみたいと思います。私は今回が初めてのチャレンジです。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># パッケージのインストールと有効化
+pacman -S nftables
+systemctl enable nftables
+</code></pre></td></tr></table>
+</div>
+</div><p>デフォルトでは icmp, ipmpv6, ssh が許可されています。インストール直後はこれで困りませんのでこのまま利用します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># デーモンの起動後に nft list ruleset で確認できます
+# 設定ファイルは /etc/nftables.conf です
+table inet filter {
+        chain input {
+                type filter hook input priority filter; policy accept;
+                ct state { established, related } accept
+                ct state invalid drop
+                iifname &#34;lo&#34; accept
+                ip protocol icmp accept
+                ip6 nexthdr ipv6-icmp accept
+                tcp dport 22 accept
+                reject
+        }
+
+        chain forward {
+                type filter hook forward priority filter; policy accept;
+                drop
+        }
+
+        chain output {
+                type filter hook output priority filter; policy accept;
+        }
+}
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>nftables:<br>
+<a href="https://wiki.archlinux.org/index.php/Nftables">https://wiki.archlinux.org/index.php/Nftables</a></p>
+</blockquote>
+<h3 id="ミラーの選択">ミラーの選択</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacman -S pacman-contrib
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+curl -o /etc/pacman.d/mirrorlist.generator &#39;https://www.archlinux.org/mirrorlist/?country=JP&amp;protocol=http&amp;protocol=https&amp;ip_version=4&amp;ip_version=6&amp;use_mirror_status=on&#39;
+sed -i &#39;s/^#Server/Server/&#39; /etc/pacman.d/mirrorlist.generator
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.generator &gt; /etc/pacman.d/mirrorlist
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="lvm">lvm</h3>
+<p>LVM の discard サポートを有効にします。lvremove などで物理ディスクの領域を必要としなくなった時に破棄してくれるようになります。(この設定は SSD の Trim とは関連しないようです。)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># /etc/lvm/lvm.conf 
+issue_discards = 1
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>lvm.conf(5) - Linux man page:<br>
+<a href="https://linux.die.net/man/5/lvm.conf">https://linux.die.net/man/5/lvm.conf</a></p>
+<p>issue_discards - Issue discards to a logical volumes&rsquo;s underlying physical volume(s) when the logical volume is no longer using the physical volumes' space (e.g. lvremove, lvreduce, etc). Discards inform the storage that a region is no longer in use. Storage that supports discards advertise the protocol specific way discards should be issued by the kernel (TRIM, UNMAP, or WRITE SAME with UNMAP bit set). Not all storage will support or benefit from discards but SSDs and thinly provisioned LUNs generally do. If set to 1, discards will only be issued if both the storage and kernel provide support.</p>
+</blockquote>
+<h3 id="ntpd">ntpd</h3>
+<p>一般的な ntpd をセットアップします。お好みで <code>systemd-timesyncd</code> とか <code>chrony</code> とかを使ってもいいと思います。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacman -S ntp
+</code></pre></td></tr></table>
+</div>
+</div><p>インターネットマルチフィード(MFEED) が提供してくれている NTP サーバを設定 ntpd を有効にします。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># /etc/ntp.conf 
+server ntp1.jst.mfeed.ad.jp
+server ntp2.jst.mfeed.ad.jp
+server ntp3.jst.mfeed.ad.jp
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable ntpd
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>NTP:<br>
+<a href="https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon">https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon</a></p>
+</blockquote>
+<h3 id="sshd">sshd</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacman -S openssh
+systemctl enable sshd.service
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Secure Shell:<br>
+<a href="https://wiki.archlinux.org/index.php/Secure_Shell">https://wiki.archlinux.org/index.php/Secure_Shell</a></p>
+</blockquote>
+<h3 id="arch-user-repository-aur">Arch User Repository (AUR)</h3>
+<p>Arch には、公式リポジトリとは別にコミュニティで運用されている AUR と呼ばれるリポジトリがあります。通常、AUR のパッケージは自分でビルドする必要がありますが、この作業をやってくれるヘルパープログラムがあるのでインストールします。<code>yaourt</code>というパッケージが人気かつ有名でしたが今は廃止されていました。AUR ヘルパーはいろいろあるのでお好きなものを使えばいいと思うのですが、みんなが使ってるパッケージな方が情報も多くなにかと便利なので、<code>yay</code>をインストールします。</p>
+<ul>
+<li>makepkg コマンドは root 以外のユーザで実行しないと怒られてしまいますのでご注意ください</li>
+<li>yay コマンドは root 以外のユーザで実行してください</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>AUR (en) - yay:<br>
+<a href="https://aur.archlinux.org/packages/yay/">https://aur.archlinux.org/packages/yay/</a></p>
+</blockquote>
+<h3 id="rsyslog">rsyslog</h3>
+<p>ElasticSearch に直接ログを投げ込みたいなーともくろんでいるので rsyslog を使います。rsyslog は AUR で提供されているので、yay でインストールします。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yay -S rsyslog
+mkdir /var/spool/rsyslog
+</code></pre></td></tr></table>
+</div>
+</div><p>systemd-journald からログを引き取るために imjournal モジュールを追加します。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># /etc/rsyslog.conf
+$ModLoad imjournal
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo systemctl enable rsyslog
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Rsyslog:<br>
+<a href="https://wiki.archlinux.org/index.php/Rsyslog">https://wiki.archlinux.org/index.php/Rsyslog</a></p>
+</blockquote>
+<h3 id="bash-tab-補完">Bash Tab 補完</h3>
+<p>bash-completion のインストール</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pacman -C bash-completion
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># .bashrc に設定の追記
+cat &lt;&lt; &#39;EOF&#39; &gt;&gt; ~/.bashrc
+# Use bash-completion, if available
+[[ $PS1 &amp;&amp; -f /usr/share/bash-completion/bash_completion ]] &amp;&amp; \
+    . /usr/share/bash-completion/bash_completion
+EOF
+
+# ~/.bashrc のリロード
+source ~/.bashrc
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>scop/bash-completion: Programmable completion functions for bash:<br>
+<a href="https://github.com/scop/bash-completion#Installation">https://github.com/scop/bash-completion#Installation</a></p>
+</blockquote>
+        </div>
+        <div class ='post_extra mb-2'>
+          <div class = 'copy'></div>
+
+        </div>
+        <div>
+        
+        </div>
+      </div>
+    </div>
+    <a href = 'https://b1naryd0g.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+  </div>
+
+    </main>
+    <footer class = 'footer wrap pale'>
+  <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+</footer>
+
+
+<script src = 'https://b1naryd0g.github.io/js/index.min.07c6fc7e589e618408c3d9d16245a338e7fb253bcc56a52da6b49b03ca0441b10a88b73a2879ebc858a1f8e00747f5aca54ef064ce5652a23f26bcf0ca213ad5.js'></script>
+
+  </body>
+</html>

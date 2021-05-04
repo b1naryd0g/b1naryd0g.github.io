@@ -2,14 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Kimagure Tech</title>
-    <link>https://ruitrek.github.io/categories/</link>
+    <link>https://b1naryd0g.github.io/categories/</link>
     <description>Recent content in Categories on Kimagure Tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>jp</language>
-    <copyright>Copyright © 2020, ruitrek; all rights reserved.</copyright>
-    
-	<atom:link href="https://ruitrek.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>Copyright © 2020, b1naryd0g; all rights reserved.</copyright><atom:link href="https://b1naryd0g.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

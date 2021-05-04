@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang='en' >
+  <head>
+  <title>Hugo tips | Kimagure Tech</title>
+  <meta charset='utf-8'>
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45001119-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-45001119-4');
+</script>
+
+<meta name = 'keywords' content = 'Kimagure Tech'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property = 'og:type' content = 'article' />
+<meta property = 'og:title' content = 'Hugo Tips' />
+<meta property = 'og:description' content = 'この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は私がつまづいた手順です。新しいものを見つけたら順次更新します。'>
+<meta property = 'og:url' content = 'https://b1naryd0g.github.io/post/2020-02-23_hugo_tips/' />
+<meta property = 'og:image' content = 'https://b1naryd0g.github.io/images/hugo-logo-wide.svg'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://b1naryd0g.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://b1naryd0g.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://b1naryd0g.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://b1naryd0g.github.io/images/icons/site.webmanifest'>
+<meta name='msapplication-TileColor' content='#da532c'>
+<meta name='theme-color' content='#ffffff'>
+
+  <link rel='canonical' href='https://b1naryd0g.github.io/post/2020-02-23_hugo_tips/'>
+  <link rel = 'stylesheet' href = 'https://b1naryd0g.github.io/css/main.dc7a6bede9934c85c8049f3262ef686be020f78f1425f4bda69d319b7d888661d386b23f4a369d4e5267cdddd6396efd26ca46ae2e2854a420d475d3955f9dfb.css' integrity = 'sha512-3Hpr7emTTIXIBJ8yYu9oa&#43;Ag948UJfS9pp0xm32IhmHThrI/SjadTlJnzd3WOW79JspGri4oVKQg1HXTlV&#43;d&#43;w=='>
+</head>
+
+  <body>
+    <div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://b1naryd0g.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://b1naryd0g.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://b1naryd0g.github.io/tags' class = 'nav_item'>Tag</a>
+    <div class = 'nav-close'></div><div class = 'color_mode'>
+<label for = 'mode'>Toggle Dark Mode</label>
+<input type = 'checkbox' class = 'color_choice' id = 'mode'>
+</div>
+
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://b1naryd0g.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+      
+  <div class = 'wrap mt post'>
+    <div><p class = 'post_date pale'>23. February 2020</p>
+      <h1 class = 'post_title'>Hugo Tips</h1>
+      <div class = 'post_body'>
+        <div class = 'post_inner'>
+        
+          <img src = 'https://b1naryd0g.github.io/images/hugo-logo-wide.svg' alt = 'hugo-logo-wide.svg' class = 'post_thumbnail'>
+        
+          <p>この記事では Hugo と Hugo に関連する Tips を紹介していきたいと思います。大体は私がつまづいた手順です。新しいものを見つけたら順次更新します。</p>
+<p><strong>TOC</strong></p>
+<ul>
+<li><a href="#hugo">Hugo</a>
+<ul>
+<li><a href="#%e3%83%93%e3%83%ab%e3%83%89%e3%81%97%e3%81%a6%e3%82%82-public-%e3%83%95%e3%82%a9%e3%83%ab%e3%83%80%e3%81%ab%e8%a8%98%e4%ba%8b%e3%81%8c%e5%87%ba%e5%8a%9b%e3%81%95%e3%82%8c%e3%81%be%e3%81%9b%e3%82%93">ビルドしても public フォルダに記事が出力されません</a></li>
+<li><a href="#%e8%a8%98%e4%ba%8b%e3%81%ae%e5%90%8d%e5%89%8d%e3%82%92%e9%96%93%e9%81%95%e3%81%88%e3%81%a6%e3%81%97%e3%81%be%e3%81%84%e3%81%be%e3%81%97%e3%81%9f%e8%a8%98%e4%ba%8b%e3%82%92%e5%89%8a%e9%99%a4%e3%81%99%e3%82%8b%e3%81%ab%e3%81%af%e3%81%a9%e3%81%86%e3%81%97%e3%81%9f%e3%82%89%e3%81%84%e3%81%84%e3%81%a7%e3%81%99%e3%81%8b">記事の名前を間違えてしまいました。記事を削除するにはどうしたらいいですか</a></li>
+<li><a href="#%e8%a6%81%e7%b4%84-read-more-%e3%82%92%e8%87%aa%e5%88%86%e3%81%a7%e5%8c%ba%e5%88%87%e3%82%8a%e3%81%9f%e3%81%84">要約 (Read more) を自分で区切りたい</a></li>
+<li><a href="#%e5%88%a5%e3%81%ae%e8%a8%98%e4%ba%8b%e3%81%ab%e3%83%aa%e3%83%b3%e3%82%af%e3%81%97%e3%81%9f%e3%81%84">別の記事にリンクしたい</a></li>
+<li><a href="#ananke-google-%e3%81%aa%e3%81%a9%e6%a4%9c%e7%b4%a2%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%b3%e3%81%ab%e3%82%a4%e3%83%b3%e3%83%87%e3%83%83%e3%82%af%e3%82%b9%e3%81%95%e3%82%8c%e3%81%aa%e3%81%84">(Ananke) Google など検索エンジンにインデックスされない</a></li>
+<li><a href="#ananke-google-analytics-%e3%81%8c%e6%9c%89%e5%8a%b9%e3%81%ab%e3%81%aa%e3%82%89%e3%81%aa%e3%81%84">(Ananke) Google Analytics が有効にならない</a></li>
+</ul>
+</li>
+<li><a href="#github-pages">GitHub Pages</a>
+<ul>
+<li><a href="#user-and-organization-sites-%e3%82%bf%e3%82%a4%e3%83%97%e3%81%a7-url-%e3%81%ab%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e3%81%99%e3%82%8b%e3%81%a8-404-%e3%81%8c%e8%a1%a8%e7%a4%ba%e3%81%95%e3%82%8c%e3%81%be%e3%81%99">User and organization sites タイプで URL にアクセスすると 404 が表示されます</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="hugo">Hugo</h2>
+<hr>
+<h3 id="ビルドしても-public-フォルダに記事が出力されません">ビルドしても public フォルダに記事が出力されません</h3>
+<p>記事ファイルの draft を false に変更してください。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">draft: true
+↓
+draft: false
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="記事の名前を間違えてしまいました記事を削除するにはどうしたらいいですか">記事の名前を間違えてしまいました。記事を削除するにはどうしたらいいですか</h3>
+<p>記事ファイルを削除する、もしくは正しい名前にリネームしてください。もし、ビルド済みの場合は記事ファイルを削除してから再ビルドを実行します。</p>
+<h3 id="要約-read-more-を自分で区切りたい">要約 (Read more) を自分で区切りたい</h3>
+<p><code>&lt;!--more--&gt;</code>  を記事中の区切りたい場所に書きます。</p>
+<blockquote>
+<p>Content Summaries<br>
+<a href="https://gohugo.io/content-management/summaries/">https://gohugo.io/content-management/summaries/</a></p>
+</blockquote>
+<h3 id="別の記事にリンクしたい">別の記事にリンクしたい</h3>
+<p>以下のような形式でリンク URL を作れます。</p>
+<ul>
+<li>{{&lt; ref &quot;/posts/my-post.md&quot; &gt;}}</li>
+<li>{{&lt; ref &quot;#title&quot; &gt;}}</li>
+</ul>
+<p>Markdown の場合は以下のように使います。</p>
+<ul>
+<li>[リンク名]({{&lt; ref &quot;/posts/my-post.md&quot; &gt;}})</li>
+</ul>
+<blockquote>
+<p>Links and Cross References:<br>
+<a href="https://gohugo.io/content-management/cross-references/">https://gohugo.io/content-management/cross-references/</a></p>
+</blockquote>
+<h3 id="ananke-google-など検索エンジンにインデックスされない">(Ananke) Google など検索エンジンにインデックスされない</h3>
+<p>NOINDEX, NOFOLLOW になっている場合 <a href="#ananke-google-analytics-が有効にならない">この手順</a>で解決すると思います。</p>
+<h3 id="ananke-google-analytics-が有効にならない">(Ananke) Google Analytics が有効にならない</h3>
+<p><code>HUGO_ENV=production hugo</code>  でビルドしてください。</p>
+<blockquote>
+<p>Ananke: A theme for Hugo Sites:<br>
+<a href="https://themes.gohugo.io/gohugo-theme-ananke/">https://themes.gohugo.io/gohugo-theme-ananke/</a></p>
+<blockquote>
+<p>Production
+To run in production (e.g. to have Google Analytics show up), run HUGO_ENV=production before your build command. For example: HUGO_ENV=production hugo</p>
+</blockquote>
+</blockquote>
+<h2 id="github-pages">GitHub Pages</h2>
+<hr>
+<h3 id="user-and-organization-sites-タイプで-url-にアクセスすると-404-が表示されます">User and organization sites タイプで URL にアクセスすると 404 が表示されます</h3>
+<ul>
+<li>URL が正しいか確認してください</li>
+<li>Push から 20 分後にリトライしてみてください</li>
+<li>リポジトリ名が <code>&lt;username&gt;.github.io</code> になっているか確認してください</li>
+<li>リポジトリが Public になっているか確認してください
+<ul>
+<li><code>https://&lt;username&gt;.github.io/index.html</code>  にアクセスしてみてください
+<ul>
+<li><code>index.html</code> が表示できるときは、<code>index.html</code> を更新して Push してみてください</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+        </div>
+        <div class ='post_extra mb-2'>
+          <div class = 'copy'></div>
+
+        </div>
+        <div>
+        
+        </div>
+      </div>
+    </div>
+    <a href = 'https://b1naryd0g.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+  </div>
+
+    </main>
+    <footer class = 'footer wrap pale'>
+  <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+</footer>
+
+
+<script src = 'https://b1naryd0g.github.io/js/index.min.07c6fc7e589e618408c3d9d16245a338e7fb253bcc56a52da6b49b03ca0441b10a88b73a2879ebc858a1f8e00747f5aca54ef064ce5652a23f26bcf0ca213ad5.js'></script>
+
+  </body>
+</html>
