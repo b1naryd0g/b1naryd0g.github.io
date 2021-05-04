@@ -17,26 +17,26 @@
 <meta property = 'og:locale' content = 'en_US' />
 <meta property = 'og:type' content = 'article' />
 <meta property = 'og:title' content = 'Azure AD を Okta の IdP として設定する' />
-<meta property = 'og:description' content = 'Introduction 「質が低くてもいいので更新をがんばる」といいながら、6 ヶ月ぶりの更新になってしまいました。Okta の IdP として AAD を構成してみました。Okta はさわり始めたばかりであまり自信がありません。内容に不備がある場合は、@ruitrek までお知らせいただけますと …'>
-<meta property = 'og:url' content = 'https://ruitrek.github.io/post/2020-09-13_how_to_setup_azure_ad_as_an_idp_for_okta/' />
-<meta property = 'og:image' content = 'https://ruitrek.github.io/images/Okta_Logo_BrightBlue_Medium.png'/>
-<link rel='apple-touch-icon' sizes='180x180' href='https://ruitrek.github.io/images/icons/apple-touch-icon.png'>
-<link rel='icon' type='image/png' sizes='32x32' href='https://ruitrek.github.io/images/icons/favicon-32x32.png'>
-<link rel='icon' type='image/png' sizes='16x16' href='https://ruitrek.github.io/images/icons/favicon-16x16.png'>
-<link rel='manifest' href='https://ruitrek.github.io/images/icons/site.webmanifest'>
+<meta property = 'og:description' content = 'Introduction 「質が低くてもいいので更新をがんばる」といいながら、6 ヶ月ぶりの更新になってしまいました。Okta の IdP として AAD を構成してみました。Okta はさわり始めたばかりであまり自信がありません。内容に不備がある場合は、@b1naryd0g までお知らせいただけますと …'>
+<meta property = 'og:url' content = 'https://b1naryd0g.github.io/post/2020-09-13_how_to_setup_azure_ad_as_an_idp_for_okta/' />
+<meta property = 'og:image' content = 'https://b1naryd0g.github.io/images/Okta_Logo_BrightBlue_Medium.png'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://b1naryd0g.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://b1naryd0g.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://b1naryd0g.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://b1naryd0g.github.io/images/icons/site.webmanifest'>
 <meta name='msapplication-TileColor' content='#da532c'>
 <meta name='theme-color' content='#ffffff'>
 
-  <link rel='canonical' href='https://ruitrek.github.io/post/2020-09-13_how_to_setup_azure_ad_as_an_idp_for_okta/'>
-  <link rel = 'stylesheet' href = 'https://ruitrek.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
+  <link rel='canonical' href='https://b1naryd0g.github.io/post/2020-09-13_how_to_setup_azure_ad_as_an_idp_for_okta/'>
+  <link rel = 'stylesheet' href = 'https://b1naryd0g.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
 </head>
 
   <body>
     <div class = 'nav-drop'>
   <div class = 'nav-body'>
-      <a href = 'https://ruitrek.github.io/about/' class = 'nav_item'>About</a>
-      <a href = 'https://ruitrek.github.io/' class = 'nav_item'>Blog</a>
-      <a href = 'https://ruitrek.github.io/tags' class = 'nav_item'>Tag</a>
+      <a href = 'https://b1naryd0g.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://b1naryd0g.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://b1naryd0g.github.io/tags' class = 'nav_item'>Tag</a>
     <div class = 'nav-close'></div><div class = 'color_mode'>
 <label for = 'mode'>Toggle Dark Mode</label>
 <input type = 'checkbox' class = 'color_choice' id = 'mode'>
@@ -45,7 +45,7 @@
   </div>
 </div><header class = 'nav' >
   <nav class = 'nav-menu'>
-    <a href='https://ruitrek.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <a href='https://b1naryd0g.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
     <div class = 'nav_bar-wrap'>
       <div class = 'nav_bar'></div>
     </div>
@@ -61,10 +61,10 @@
       <div class = 'post_body'>
         <div class = 'post_inner'>
         
-          <img src = 'https://ruitrek.github.io/images/Okta_Logo_BrightBlue_Medium.png' alt = 'Okta_Logo_BrightBlue_Medium.png' class = 'post_thumbnail'>
+          <img src = 'https://b1naryd0g.github.io/images/Okta_Logo_BrightBlue_Medium.png' alt = 'Okta_Logo_BrightBlue_Medium.png' class = 'post_thumbnail'>
         
           <h2 id="introduction">Introduction</h2>
-<p>「質が低くてもいいので更新をがんばる」といいながら、6 ヶ月ぶりの更新になってしまいました。Okta の IdP として AAD を構成してみました。Okta はさわり始めたばかりであまり自信がありません。内容に不備がある場合は、@ruitrek までお知らせいただけますと幸いです。</p>
+<p>「質が低くてもいいので更新をがんばる」といいながら、6 ヶ月ぶりの更新になってしまいました。Okta の IdP として AAD を構成してみました。Okta はさわり始めたばかりであまり自信がありません。内容に不備がある場合は、@b1naryd0g までお知らせいただけますと幸いです。</p>
 <h2 id="toc">TOC</h2>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
@@ -82,28 +82,28 @@
 <li>[Manage] - [App registrations] - [New registration] で WebAPI を登録します。Redirect URI` には https://&lt;Okta サブドメイン&gt;.okta.com/oauth2/v1/authorize/callback を入力します
 
 <picture class = 'nav_logo'>
-  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
-  <img srcset = 'https://ruitrek.github.io/images/Register-an-application-Microsoft-Azure.jpg' alt = ''>
+  <source srcset = 'https://b1naryd0g.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://b1naryd0g.github.io/images/Register-an-application-Microsoft-Azure.jpg' alt = ''>
 </picture>
 </li>
 <li>[Manage] - [Certificate &amp; secrets] から [Client secrets] - [New client secret] を選んでシークレットを作成します。作成すると Value にシークレットが表示されます。画面遷移するとマスクされてしまいますので忘れずに控えます
 
 <picture class = 'nav_logo'>
-  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
-  <img srcset = 'https://ruitrek.github.io/images/Okta-Microsoft-Azure1.jpg' alt = ''>
+  <source srcset = 'https://b1naryd0g.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://b1naryd0g.github.io/images/Okta-Microsoft-Azure1.jpg' alt = ''>
 </picture>
 
 
 <picture class = 'nav_logo'>
-  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
-  <img srcset = 'https://ruitrek.github.io/images/Okta-Microsoft-Azure2.jpg' alt = ''>
+  <source srcset = 'https://b1naryd0g.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://b1naryd0g.github.io/images/Okta-Microsoft-Azure2.jpg' alt = ''>
 </picture>
 </li>
 <li>[Overview] - [Endpoints] を選んで、<strong>Application (client) ID</strong> と <strong>OpenID Connect metadata document</strong> を控えます
 
 <picture class = 'nav_logo'>
-  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
-  <img srcset = 'https://ruitrek.github.io/images/Endpoints-Microsoft-Azure1jpg' alt = ''>
+  <source srcset = 'https://b1naryd0g.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://b1naryd0g.github.io/images/Endpoints-Microsoft-Azure1jpg' alt = ''>
 </picture>
 </li>
 <li>先程控えた OpenID Connect metadata document の URL にブラウザアクセスして、次の 4 つのエンドポイントを控えます
@@ -137,22 +137,22 @@ jq -r &#39;&#34;issuer: &#34; + .issuer,
 <li>[Security] - [Identity Providers] を選んで、<strong>Add OpenID Connect IdP</strong> を選びます。 Add Microsoft ではありません <strong>Add OpenID Connect IdP</strong> です (3回目)
 
 <picture class = 'nav_logo'>
-  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
-  <img srcset = 'https://ruitrek.github.io/images/ruitrek-Identity-Providers1.jpg' alt = ''>
+  <source srcset = 'https://b1naryd0g.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://b1naryd0g.github.io/images/b1naryd0g-Identity-Providers1.jpg' alt = ''>
 </picture>
 </li>
 <li>先程控えた値を入力します
 
 <picture class = 'nav_logo'>
-  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
-  <img srcset = 'https://ruitrek.github.io/images/ruitrek-Identity-Providers2.jpg' alt = ''>
+  <source srcset = 'https://b1naryd0g.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://b1naryd0g.github.io/images/b1naryd0g-Identity-Providers2.jpg' alt = ''>
 </picture>
 </li>
 <li>なんでもかんでも AAD にルーティングするルールを作成してアクティベートします
 
 <picture class = 'nav_logo'>
-  <source srcset = 'https://ruitrek.github.io/images/' media="(prefers-color-scheme: dark)">
-  <img srcset = 'https://ruitrek.github.io/images/ruitrek-Identity-Providers3.jpg' alt = ''>
+  <source srcset = 'https://b1naryd0g.github.io/images/' media="(prefers-color-scheme: dark)">
+  <img srcset = 'https://b1naryd0g.github.io/images/b1naryd0g-Identity-Providers3.jpg' alt = ''>
 </picture>
 </li>
 </ol>
@@ -167,17 +167,17 @@ jq -r &#39;&#34;issuer: &#34; + .issuer,
         </div>
       </div>
     </div>
-    <a href = 'https://ruitrek.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+    <a href = 'https://b1naryd0g.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
   </div>
 
     </main>
     <footer class = 'footer wrap pale'>
   <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
-  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/b1naryd0g_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>b1naryd0g</a></p>
 </footer>
 
 
-<script src = 'https://ruitrek.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
+<script src = 'https://b1naryd0g.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
 
   </body>
 </html>

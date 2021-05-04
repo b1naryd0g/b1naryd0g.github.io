@@ -19,25 +19,25 @@
 <meta property = 'og:title' content = 'Raspberry Pi 4 に 暗号化した RAID ボリュームを作成する' />
 <meta property = 'og:description' content = '前回 RPI4 に Arch Linux をインストールした post の続きです。 ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。
 今回の構成 ガチャベイという USB 接続の HDD ケースと 2 TB の HDD 6 本を使ってストレージを作ります。こ …'>
-<meta property = 'og:url' content = 'https://ruitrek.github.io/posts/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/' />
-<meta property = 'og:image' content = 'https://ruitrek.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg'/>
-<link rel='apple-touch-icon' sizes='180x180' href='https://ruitrek.github.io/images/icons/apple-touch-icon.png'>
-<link rel='icon' type='image/png' sizes='32x32' href='https://ruitrek.github.io/images/icons/favicon-32x32.png'>
-<link rel='icon' type='image/png' sizes='16x16' href='https://ruitrek.github.io/images/icons/favicon-16x16.png'>
-<link rel='manifest' href='https://ruitrek.github.io/images/icons/site.webmanifest'>
+<meta property = 'og:url' content = 'https://b1naryd0g.github.io/posts/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/' />
+<meta property = 'og:image' content = 'https://b1naryd0g.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://b1naryd0g.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://b1naryd0g.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://b1naryd0g.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://b1naryd0g.github.io/images/icons/site.webmanifest'>
 <meta name='msapplication-TileColor' content='#da532c'>
 <meta name='theme-color' content='#ffffff'>
 
-  <link rel='canonical' href='https://ruitrek.github.io/posts/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/'>
-  <link rel = 'stylesheet' href = 'https://ruitrek.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
+  <link rel='canonical' href='https://b1naryd0g.github.io/posts/2020-03-07_setup_dm-raid_with_dm-crypt_on_raspberry_pi_4/'>
+  <link rel = 'stylesheet' href = 'https://b1naryd0g.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
 </head>
 
   <body>
     <div class = 'nav-drop'>
   <div class = 'nav-body'>
-      <a href = 'https://ruitrek.github.io/about/' class = 'nav_item'>About</a>
-      <a href = 'https://ruitrek.github.io/' class = 'nav_item'>Blog</a>
-      <a href = 'https://ruitrek.github.io/tags' class = 'nav_item'>Tag</a>
+      <a href = 'https://b1naryd0g.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://b1naryd0g.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://b1naryd0g.github.io/tags' class = 'nav_item'>Tag</a>
     <div class = 'nav-close'></div><div class = 'color_mode'>
 <label for = 'mode'>Toggle Dark Mode</label>
 <input type = 'checkbox' class = 'color_choice' id = 'mode'>
@@ -46,7 +46,7 @@
   </div>
 </div><header class = 'nav' >
   <nav class = 'nav-menu'>
-    <a href='https://ruitrek.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <a href='https://b1naryd0g.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
     <div class = 'nav_bar-wrap'>
       <div class = 'nav_bar'></div>
     </div>
@@ -62,9 +62,9 @@
       <div class = 'post_body'>
         <div class = 'post_inner'>
         
-          <img src = 'https://ruitrek.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' alt = 'harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' class = 'post_thumbnail'>
+          <img src = 'https://b1naryd0g.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' alt = 'harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' class = 'post_thumbnail'>
         
-          <p><a href="https://ruitrek.github.io/posts/2020-02-29_install_arch_linux_on_raspberrypi_4/">前回</a> RPI4 に Arch Linux をインストールした post の続きです。
+          <p><a href="https://b1naryd0g.github.io/posts/2020-02-29_install_arch_linux_on_raspberrypi_4/">前回</a> RPI4 に Arch Linux をインストールした post の続きです。
 ストレージが余っているのでファイルサーバ用に RAID ボリュームを作りたいと思います。</p>
 <h2 id="今回の構成">今回の構成</h2>
 <p>ガチャベイという USB 接続の HDD ケースと 2 TB の HDD 6 本を使ってストレージを作ります。このストレージは Mac のバックアップなど機微な情報を保存する予定のため HDD を暗号化したいと思います。</p>
@@ -341,17 +341,17 @@ echo /dev/mapper/cryptdata /srv xfs defaults 0 2 &gt;&gt; /etc/fstab
         </div>
       </div>
     </div>
-    <a href = 'https://ruitrek.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+    <a href = 'https://b1naryd0g.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
   </div>
 
     </main>
     <footer class = 'footer wrap pale'>
   <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
-  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/b1naryd0g_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>b1naryd0g</a></p>
 </footer>
 
 
-<script src = 'https://ruitrek.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
+<script src = 'https://b1naryd0g.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
 
   </body>
 </html>

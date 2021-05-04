@@ -17,7 +17,7 @@
       <description>前回の続きです。Raspberry Pi に docker をインストールして、前回作った RAID ボリュームにイメージを配置します。
 パッケージのインストールと起動 Docker をインストールします。手順の中では sudo を使用しなくていいように docker グループにユーザを追加していますが、Arch の wiki に書いてある通り docker グループにユーザをすることは root になることと同意です。ご注意ください。
  Warning: Anyone added to the docker group is root equivalent. More information here and here.
- 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33  sudo pacman -S docker sudo systemctl enable docker sudo systemctl start docker # docker グループにユーザを追加 sudo gpasswd -a ruitrek docker docker version Client: Version: 19.</description>
+ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33  sudo pacman -S docker sudo systemctl enable docker sudo systemctl start docker # docker グループにユーザを追加 sudo gpasswd -a b1naryd0g docker docker version Client: Version: 19.</description>
     </item>
     
     <item>
@@ -78,7 +78,7 @@ RAID アレイの作成 mdadm をインストールします。
       <pubDate>Sat, 22 Feb 2020 22:09:06 +0900</pubDate>
       
       <guid>https://b1naryd0g.github.io/post/2020-02-22_about-this-blog/</guid>
-      <description>こんにちはルイ (@ruitrek_) と申します。
+      <description>こんにちはルイ (@b1naryd0g_) と申します。
 ブログ名はあの有名 YouTuber のチャンネル名からブログ名を拝借しました。
 これまで何度かブログに挑戦しましたが、「正確なことを書かねば」とか、「かっこよくせねば」とか、あれこれ考えているうちに記事を書くことが面倒になり長続きしませんでした。
 ブログ名の通り、技術系のネタを中心に気まぐれでやって行きたいと思います。低品質でもいいので記事を発信し続けることが目標です。</description>

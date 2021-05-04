@@ -18,25 +18,25 @@
 <meta property = 'og:type' content = 'article' />
 <meta property = 'og:title' content = 'Raspberry Pi に Arch Linux をインストールする' />
 <meta property = 'og:description' content = 'Raspberry Pi 4 (RPI) を購入したので Arch を入れて遊んでみることにしました。多くの方が Raspberry Pi に Linux をインストールする記事を書かれていますので、あまり私がこの書く意味はありませんが、このブログでは低品質な記事でもアウトプットすることを目標にして …'>
-<meta property = 'og:url' content = 'https://ruitrek.github.io/posts/install_arch_linux_on_raspberrypi_4/' />
-<meta property = 'og:image' content = 'https://ruitrek.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg'/>
-<link rel='apple-touch-icon' sizes='180x180' href='https://ruitrek.github.io/images/icons/apple-touch-icon.png'>
-<link rel='icon' type='image/png' sizes='32x32' href='https://ruitrek.github.io/images/icons/favicon-32x32.png'>
-<link rel='icon' type='image/png' sizes='16x16' href='https://ruitrek.github.io/images/icons/favicon-16x16.png'>
-<link rel='manifest' href='https://ruitrek.github.io/images/icons/site.webmanifest'>
+<meta property = 'og:url' content = 'https://b1naryd0g.github.io/posts/install_arch_linux_on_raspberrypi_4/' />
+<meta property = 'og:image' content = 'https://b1naryd0g.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg'/>
+<link rel='apple-touch-icon' sizes='180x180' href='https://b1naryd0g.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://b1naryd0g.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://b1naryd0g.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://b1naryd0g.github.io/images/icons/site.webmanifest'>
 <meta name='msapplication-TileColor' content='#da532c'>
 <meta name='theme-color' content='#ffffff'>
 
-  <link rel='canonical' href='https://ruitrek.github.io/posts/install_arch_linux_on_raspberrypi_4/'>
-  <link rel = 'stylesheet' href = 'https://ruitrek.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
+  <link rel='canonical' href='https://b1naryd0g.github.io/posts/install_arch_linux_on_raspberrypi_4/'>
+  <link rel = 'stylesheet' href = 'https://b1naryd0g.github.io/css/main.4ebb88a90dcc1a92fe48536022cb5a7a29396580c778d2d8f504d7d09ae3f16def04f5d63f407e447114cde741e2fed602483edb8a72403023b61d6a04870d8e.css' integrity = 'sha512-TruIqQ3MGpL&#43;SFNgIstaeik5ZYDHeNLY9QTX0Jrj8W3vBPXWP0B&#43;RHEUzedB4v7WAkg&#43;24pyQDAjth1qBIcNjg=='>
 </head>
 
   <body>
     <div class = 'nav-drop'>
   <div class = 'nav-body'>
-      <a href = 'https://ruitrek.github.io/about/' class = 'nav_item'>About</a>
-      <a href = 'https://ruitrek.github.io/' class = 'nav_item'>Blog</a>
-      <a href = 'https://ruitrek.github.io/tags' class = 'nav_item'>Tag</a>
+      <a href = 'https://b1naryd0g.github.io/about/' class = 'nav_item'>About</a>
+      <a href = 'https://b1naryd0g.github.io/' class = 'nav_item'>Blog</a>
+      <a href = 'https://b1naryd0g.github.io/tags' class = 'nav_item'>Tag</a>
     <div class = 'nav-close'></div><div class = 'color_mode'>
 <label for = 'mode'>Toggle Dark Mode</label>
 <input type = 'checkbox' class = 'color_choice' id = 'mode'>
@@ -45,7 +45,7 @@
   </div>
 </div><header class = 'nav' >
   <nav class = 'nav-menu'>
-    <a href='https://ruitrek.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
+    <a href='https://b1naryd0g.github.io/' class = 'nav-brand nav_item'>Kimagure Tech</a>
     <div class = 'nav_bar-wrap'>
       <div class = 'nav_bar'></div>
     </div>
@@ -61,7 +61,7 @@
       <div class = 'post_body'>
         <div class = 'post_inner'>
         
-          <img src = 'https://ruitrek.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' alt = 'harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' class = 'post_thumbnail'>
+          <img src = 'https://b1naryd0g.github.io/images/harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' alt = 'harrison-broadbent-VOz0gV9HC0I-unsplash.jpg' class = 'post_thumbnail'>
         
           <p>Raspberry Pi 4 (RPI) を購入したので Arch を入れて遊んでみることにしました。多くの方が Raspberry Pi に Linux をインストールする記事を書かれていますので、あまり私がこの書く意味はありませんが、このブログでは低品質な記事でもアウトプットすることを目標にしているので自分への備忘録として残します。</p>
 <h2 id="インストール方法について">インストール方法について</h2>
@@ -168,7 +168,7 @@ sudo dd if=/dev/disk2 | pbzip2 -9 &gt; rpi_archimg.bz2
 </div>
 </div><h2 id="インストール後の設定について">インストール後の設定について</h2>
 <p>インストール後の手順についてはこちらをご参考くださればうれしいです。</p>
-<p><a href="https://ruitrek.github.io/posts/install_archlinux/#%e5%bf%85%e9%a0%88%e3%81%a7%e3%81%af%e3%81%aa%e3%81%84%e3%81%91%e3%81%a9%e3%82%84%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%a8%e4%be%bf%e5%88%a9%e3%81%aa%e8%a8%ad%e5%ae%9a%e3%81%9f%e3%81%a1">必須ではないけどやっておくと便利な設定たち</a></p>
+<p><a href="https://b1naryd0g.github.io/posts/install_archlinux/#%e5%bf%85%e9%a0%88%e3%81%a7%e3%81%af%e3%81%aa%e3%81%84%e3%81%91%e3%81%a9%e3%82%84%e3%81%a3%e3%81%a6%e3%81%8a%e3%81%8f%e3%81%a8%e4%be%bf%e5%88%a9%e3%81%aa%e8%a8%ad%e5%ae%9a%e3%81%9f%e3%81%a1">必須ではないけどやっておくと便利な設定たち</a></p>
 <h2 id="今後について">今後について</h2>
 <p>今後は時間を見つけていろいろやっていきたいなーと思います。</p>
 <ul>
@@ -187,17 +187,17 @@ sudo dd if=/dev/disk2 | pbzip2 -9 &gt; rpi_archimg.bz2
         </div>
       </div>
     </div>
-    <a href = 'https://ruitrek.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
+    <a href = 'https://b1naryd0g.github.io/' class = 'post_nav'><span class = 'post_next'>The Latest</span></a>
   </div>
 
     </main>
     <footer class = 'footer wrap pale'>
   <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;Kimagure Tech</p>
-  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/ruitrek_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>ruitrek</a></p>
+  <p class="attribution upcase">Designed by  <a href = 'https://twitter.com/b1naryd0g_' target = '_blank' title = 'Linkedin Profile' rel = 'nonopener'>b1naryd0g</a></p>
 </footer>
 
 
-<script src = 'https://ruitrek.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
+<script src = 'https://b1naryd0g.github.io/js/index.min.b22eed013e9808ce72856c3d73aab473ee4137aabd0e54e4847e400f9f797377948a67ff786981bc1f3875845b922a1e68996b95c449b6cb7ecaa1def1eb287b.js'></script>
 
   </body>
 </html>
